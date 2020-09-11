@@ -1,0 +1,55 @@
+.main-nav {
+  background: linear-gradient(to bottom, @green-light 0%, @green-dark 100%);
+  box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.25);
+
+  a {
+    color: #fff;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  .dropdown-item {
+    &:hover {
+      color: @green-dark;
+    }
+  }
+
+  .active {
+    background: #fff;
+    border-radius: 5px;
+    padding: 0 5px;
+    box-shadow: inset 0 2px 3px 0 rgba(0, 0, 0, 0.75);
+
+    a {
+      color: @green-medium;
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .navbar-toggler {
+    background: @green-light;
+    color: #fff;
+  }
+
+  .logo {
+    background: #fff;
+    border-radius: 5px;
+    padding: 5px 25px;
+    box-shadow: inset 0 2px 3px 0 rgba(0, 0, 0, 0.75);
+  }
+
+  .dropdown-menu {
+    a:hover {
+      text-decoration: none;
+    }
+  }
+}

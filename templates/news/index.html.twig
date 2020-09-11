@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Aktuelles{% endblock %}
+
+{% block body %}
+    <div class="club">
+        <div class="container main-container">
+            <div class="row">
+                <div class="col-lg-12 mt-4">
+                    <h2>Aktuelles</h2>
+                    <ul class="list-group list-group-flush">
+                        {% for newsItem in news %}
+                            <li class="list-group-item news-list-item">
+                                <a href="{{ path('news_detail', {id: newsItem.id, slug: newsItem.slug}) }}">
+                                    <small>{{ newsItem.category.name }} - {{ newsItem.createdat | date("d.m.Y") }}
+                                        von {{ newsItem.user.firstname }}</small>
+                                    {% if newsItem.media %}
+                                        <img class="img-fluid float-left mr-2"
+                                             src="{{ vich_uploader_asset(newsItem.media, 'imageFile') | imagine_filter('news_image') }}"
+                                             alt="{{ newsItem.title }}">
+                                    {% endif %}
+                                    <h4>{{ newsItem.title }}</h4>
+
+
+                                    <p>{{ newsItem.caption | nl2br }}</p>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="mt-3">
+                        {{ knp_pagination_render(news) }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

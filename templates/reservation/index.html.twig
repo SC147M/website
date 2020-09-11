@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Meine Tischreservierungen{% endblock %}
+
+{% block body %}
+    <div class="container main-container">
+        <div class="row">
+            <div class="col-12 mt-4">
+                <h1>Meine Tischreservierungen</h1>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th>Datum</th>
+                            <th>Tisch</th>
+                            <th>Teilnehmer</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for reservation in reservations %}
+                            <tr>
+                                <td>
+                                    <a class="btn btn-success"
+                                       href="{{ path('reservation_edit', {'id': reservation.id}) }}">Bearbeiten</a>
+                                </td>
+                                <td>
+                                    <span class="strong">{{ reservation.start | date('d.m.Y') }}</span> {{ reservation.start | date('H:i') }}
+                                    bis {{ reservation.end | date('H:i') }} Uhr
+                                </td>
+                                <td>
+                                    {% for table in reservation.tables %}
+                                        {{ table.name }}{% if not loop.last %},{% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    {% for participant in reservation.participants %}
+                                        {{ participant.firstname }}{% if not loop.last %},{% endif %}
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5">Keine Reservierungen gefunden</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <a class="btn btn-success" href="{{ path('reservation_new') }}">Neue Reservierung anlegen</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

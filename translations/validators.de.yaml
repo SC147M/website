@@ -1,0 +1,4 @@
+table_already_in_use: Der Tisch ist zu diesem Zeitpunkt schon gebucht.
+There is already an account with this email: Es besteht bereits ein Account mit dieser E-Mail
+The password fields must match.: Die Passwörter stimmen nicht überein
+Your password should be at least {{ limit }} characters: Das Passwort muss mindestens {{ limit }} Zeichen lang sein

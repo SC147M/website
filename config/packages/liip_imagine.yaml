@@ -1,0 +1,37 @@
+# See dos how to configure the bundle: https://symfony.com/doc/current/bundles/LiipImagineBundle/basic-usage.html
+liip_imagine:
+  # valid drivers options include "gd" or "gmagick" or "imagick"
+  resolvers:
+    default:
+      web_path:
+
+  driver:               "gd"
+  cache:                default
+  data_loader:          default
+  default_image:        null
+  controller:
+    filter_action:         liip_imagine.controller:filterAction
+    filter_runtime_action: liip_imagine.controller:filterRuntimeAction
+  filter_sets:
+    news_image:
+      cache: ~
+      quality: 90
+      filters:
+        fixed:
+          width: 292
+          height: 144
+
+    full_news_retina:
+      filters:
+        # use and setup the "relative_resize" filter
+        fixed:
+          # set the fixed size to "120x90" pixels
+          width: 1460
+          height: 720
+    full_news_normal:
+      filters:
+        # use and setup the "relative_resize" filter
+        fixed:
+          # set the fixed size to "120x90" pixels
+          width: 730
+          height: 360

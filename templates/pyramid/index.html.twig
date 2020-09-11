@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pyramide{% endblock %}
+
+{% block body %}
+
+
+    <div class="example-wrapper">
+        <div class="container main-container">
+            <div class="row">
+                <div class="col-12 mt-4">
+                    <div>
+                        <h2>Ergebnis eintragen</h2>
+                        <form method="post" action="{{ path('pyramid_report_direct_result') }}">
+                            Ich habe gegen
+                            <select name="opponent_id">
+                                {% for challenger in opponentToChallenge %}
+                                    <option value="{{ challenger.id }}">
+                                        {% if challenger.ranking %}
+                                            [ #{{ challenger.ranking.position }} ]
+                                        {% else %}
+                                            [ UNRANKED ]
+                                        {% endif %}
+
+                                        {{ challenger.firstname }} {{ challenger.lastname }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            verloren.
+                            <input type="submit" value="Niederlage abschicken">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="pyramid">
+                        {% for row in pyramid %}
+                            <div class="pyramid-row">
+                                {% for challenger in row %}
+
+                                    {% if challenger.id == player.id %}
+                                        <div class="pyramid-card player">
+                                            <div class="info">{{ challenger.user.shortname }}</div>
+                                            <div class="rank">{{ challenger.rank }}</div>
+                                        </div>
+                                    {% else %}
+                                        {% if challenger.valid %}
+                                            {% if challenger.rank <= player.min and challenger.rank >= player.max %}
+                                                {% set challengeAble = true %}
+                                            {% else %}
+                                                {% set challengeAble = false %}
+                                            {% endif %}
+                                            <div class="pyramid-card{% if challengeAble %} challengeable{% endif %}">
+                                                <div class="info">
+                                                    <span>{{ challenger.user.shortname }}</span>
+                                                </div>
+                                                <div class="rank">{{ challenger.rank }}</div>
+                                            </div>
+                                        {% else %}
+                                            <div class="pyramid-card-blank"></div>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

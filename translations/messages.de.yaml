@@ -1,0 +1,51 @@
+Table: Tisch
+User: Benutzer
+Reservation: Reservierung
+Reservations: Reservierungen
+Locked: Gesperrt
+Name: Name
+Participants: Teilnehmer
+Comment: Kommentar
+Start: Start
+End: Ende
+Year: Jahr
+Month: Monat
+Day: Tag
+Hour: Stunde
+Minute: Minute
+Tables: Tische
+ID: ID
+Email: E-Mail
+First name: Vorname
+Last name: Nachname
+Participations: Teilnahmen
+Password: Passwort
+Roles: Rollen
+Created at: Erstellt am
+Updated at: Geändert am
+News: News
+Title: Überschrift
+Body: Inhalt
+Image: Bild
+Image file: Bilddatei
+Löschen?: Löschen?
+Plain password: Passwort
+Repeat Password: Passwort wiederholen
+Tags: Tags
+Homepage: Homepage
+Administration: Administrierung
+Views: Ansichten
+Category: Kategorie
+Categories: Kategorien
+Caption: Vorschautext
+Media: Medien
+
+
+Message: Nachricht
+
+ROLE_PENDING: ausstehend / gesperrt
+ROLE_USER: Mitglied
+ROLE_CONTENT: News & Fotos
+ROLE_ADMIN: Administrator
+
+save_changes: Änderungen  speichern

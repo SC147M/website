@@ -1,0 +1,134 @@
+<?php
+
+namespace App\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\MatchRepository")
+ * @ORM\Table(name="pyramid_match")
+ */
+class Match
+{
+    const STATE_CREATED = 0;
+    const STATE_ACCEPTED = 1;
+    const STATE_CONFLICT = 2;
+    const STATE_ABORTED = 3;
+    const STATE_DONE = 4;
+
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="matches1")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user1;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="matches2")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user2;
+
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $state;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $created;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated;
+
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $result;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getUser1(): ?User
+    {
+        return $this->user1;
+    }
+
+    public function setUser1(?User $user1): self
+    {
+        $this->user1 = $user1;
+
+        return $this;
+    }
+
+    public function getUser2(): ?User
+    {
+        return $this->user2;
+    }
+
+    public function setUser2(?User $user2): self
+    {
+        $this->user2 = $user2;
+
+        return $this;
+    }
+
+    public function getState(): ?int
+    {
+        return $this->state;
+    }
+
+    public function setState(int $state): self
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    public function getCreated(): ?\DateTimeInterface
+    {
+        return $this->created;
+    }
+
+    public function setCreated(\DateTimeInterface $created): self
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    public function getUpdated(): ?\DateTimeInterface
+    {
+        return $this->updated;
+    }
+
+    public function setUpdated(\DateTimeInterface $updated): self
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    public function getResult(): ?int
+    {
+        return $this->result;
+    }
+
+    public function setResult(int $result): self
+    {
+        $this->result = $result;
+
+        return $this;
+    }
+}

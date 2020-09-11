@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Der Snooker Verein in München{% endblock %}
+
+{% block body %}
+    <div class="home">
+        <div class="container">
+            <div class="row">
+                <div class="header">
+                    <img src="/images/home.png" srcset="/images/home@2x.png 2x" class="img-fluid"
+                         alt="Snooker Club 147 München e.V.">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 black">
+                    <h1 class="title">Snooker Club 147 München e.V.</h1>
+                </div>
+            </div>
+        </div>
+        <div class="container main-container">
+            <div class="row">
+                <div class="col-12 mt-4">
+                    <h2>Herzlich Willkommen</h2>
+                    <div>
+                        <p>
+                            Wer in München Snooker spielen will, findet im Osten Münchens einen Verein.
+                            <span class="strong">24 Stunden, 7 Tage pro Woche</span> steht es Mitgliedern frei, auf
+                            unseren Tischen ihren Sport auszuüben. Dabei ist Snooker spielen bei uns erschwinglich und wir bieten bestens gepflegtes
+                            Material.
+                        </p>
+                        <p>
+                            Leider nehmen wir neue Mitgliedsanträge zur Zeit nur auf die Warteliste.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class=" col-lg-6 mt-4">
+                    <h2>Aktuelles</h2>
+                    <div class="featured-green">
+                        <h4>{{ news.title }}</h4>
+                        <p class="small">{{ news.createdAt | date('d.m.Y') }} von {{ news.user.firstName }}</p>
+                        {% if news.media %}
+                        <a href="{{ path('news_detail', {id: news.id, slug: news.slug}) }}"><img class="img-fluid float-left mr-2"
+                                 src="{{ vich_uploader_asset(news.media, 'imageFile') | imagine_filter('news_image') }}"
+                                                                                                 alt="{{ news.title }}"></a>
+                        {% endif %}
+                        <p>{{ news.caption | nl2br }}</p>
+                        <p><a href="{{ path('news_detail', {id: news.id, slug: news.slug}) }}">Weiterlesen</a></p>
+                    </div>
+                </div>
+                <div class="col-lg-6 mt-4">
+                    <h2>Tischreservierungen</h2>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                            {% for reservation in reservations %}
+                                <tr>
+                                    <th scope="row">{{ reservation.start | date('d.m.') }} {{ reservation.start | date('H:i') }}
+                                        - {{ reservation.end | date('H:i') }}</th>
+                                    <td>
+                                        {% for table in reservation.tables %}
+                                            {{ table.name }}{% if loop.last == false %},{% endif %}
+                                        {% endfor %}
+                                    </td>
+                                    <td>
+                                        {% for user in reservation.participants %}
+                                            {{ user.firstname }}{% if loop.last == false %},{% endif %}
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <th>Derzeit keine Reservierungen vorhanden.</th>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% if is_granted('ROLE_USER') %}
+                        <div class="clearfix">
+                            <a class="pull-right featured-green" href="{{ path('reservation_new') }}">Tisch
+                                reservieren</a>
+                        </div>
+                    {% endif %}
+
+                    {% if tourneys | length > 0 %}
+                        <h2>Nächste Turniere im Verein</h2>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tbody>
+                                {% for reservation in tourneys %}
+                                    <tr>
+                                        <th scope="row"><strong>{{ reservation.start | date('d.m.Y') }}</strong></th>
+                                        <td>
+                                            {{ reservation.comment | raw }}
+                                            <p>Beginn: {{ reservation.start | date('H:i') }} Uhr</p>
+                                        </td>
+                                    </tr>
+
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

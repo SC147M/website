@@ -1,0 +1,120 @@
+@import 'variables';
+@import 'home';
+@import 'nav';
+@import 'boxes';
+@import 'datepicker';
+@import 'selectize';
+@import 'calendar';
+
+
+* {
+
+  font-family: 'Open Sans', sans-serif;
+
+}
+
+a {
+  cursor: pointer;
+}
+
+body {
+  background: #403f3f;
+  color: #0a0f08;
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+.strong {
+  font-weight: bold;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+main {
+  margin-top: 76px;
+}
+
+a {
+  color: @green-medium;
+}
+
+a, button, img {
+  outline: none;
+}
+
+a:hover {
+  color: @green-dark;
+  text-decoration: underline;
+}
+
+.footer {
+  .container {
+    background-color: #f5f5f5;
+  }
+}
+
+.main-container {
+  background: #fff;
+  padding-bottom: 25px;
+}
+
+.green {
+  color: @green-medium;
+}
+
+.red {
+  color: #881300;
+}
+
+.bg-green {
+  background: @green-medium;
+}
+
+.shadow {
+  box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.75) !important;
+}
+
+.text-shadow {
+  text-shadow: 0px 0px 1px #000000;
+}
+
+.btn-success {
+  color: #fff;
+  background-color: @green-medium;
+  border-color: @green-medium;
+}
+
+.btn-success:hover {
+  color: #fff;
+  background-color: @green-dark;
+  border-color: @green-dark;
+}
+
+.page-link {
+  position: relative;
+  display: block;
+  padding: .5rem .75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: @green-medium;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  &:hover {
+    color: @green-medium;
+  }
+}
+
+.page-item.active .page-link {
+  z-index: 1;
+  color: #fff;
+  background-color: @green-medium;
+  border-color: @green-medium;
+}
+
+
+@import 'pyramid';
+
+
+

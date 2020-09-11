@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservierung bearbeiten{% endblock %}
+
+{% block body %}
+    <div class="container main-container">
+        <div class="row">
+            <div class="col-12 mt-4">
+                <h1>Reservierung bearbeiten</h1>
+
+                {{ include('reservation/_form.html.twig', {'button_label': 'save_changes' | trans }) }}
+
+                <a href="{{ path('reservation_index') }}">Zurück zu meinen Reservierungen</a>
+
+                <div class="pull-right">{{ include('reservation/_delete_form.html.twig') }}</div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

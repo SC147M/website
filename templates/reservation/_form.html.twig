@@ -1,0 +1,102 @@
+{{ form_start(form, {'attr': {'id': 'reservation_form'}}) }}
+    {{ form_row(form.start) }}
+
+<div class="row">
+    <div class="col-lg-8"><input id="day" type="hidden"></div>
+    <div class="col-lg-2 col-sm-6"><input id="time_start" type="hidden"></div>
+    <div class="col-lg-2 col-sm-6"><input id="time_end" type="hidden"></div>
+</div>
+<div class="row">
+    <div class="col-12 mt-2">
+        {{ form_row(form.participants) }}
+        {{ form_row(form.tables) }}
+        {{ form_row(form.comment) }}
+        <button class="btn btn-success bg-green">{{ button_label|default('Save') }}</button>
+    </div>
+</div>
+
+{{ form_end(form) }}
+
+<script>
+    $(document).ready(function () {
+        $("#reservation_participants").selectize({
+            maxItems: 2,
+            plugins: ['remove_button']
+        });
+
+        $("#reservation_tables").selectize({
+            minItems: 1,
+            maxItems: 1
+        });
+
+        $('#reservation_form').submit(function (e) {
+
+            let date = $('#day').datetimepicker('viewDate');
+
+            let start = $('#time_start').datetimepicker('viewDate');
+            let hours = moment(start).format('HH');
+            let minutes = moment(start).format('mm');
+            let dateStart = moment(date).hours(hours).minutes(minutes).seconds(0);
+
+            let end = $('#time_end').datetimepicker('viewDate');
+            hours = moment(end).format('HH');
+            minutes = moment(end).format('mm');
+            let dateEnd = moment(date).hours(hours).minutes(minutes).seconds(0);
+
+            if (dateEnd < dateStart) {
+                dateEnd = moment(dateEnd).add(1, 'day');
+            }
+
+            $('#reservation_start').val(moment(dateStart).format('YYYY-MM-DDTHH:mm:ss'));
+            $('#reservation_end').val(moment(dateEnd).format('YYYY-MM-DDTHH:mm:ss'));
+        });
+
+        let dateStart = $('#reservation_start').val();
+        let dateEnd = $('#reservation_end').val();
+        if (dateStart === '') {
+            dateStart = new Date();
+            dateEnd = moment(dateStart).add(15, 'minutes');
+        }
+
+        $('#day').datetimepicker({
+            inline: true,
+            locale: 'de',
+            format: 'L',
+            defaultDate: moment(dateStart)
+        })
+
+        $('#time_start').datetimepicker({
+            inline: true,
+            locale: 'de',
+            format: 'LT',
+            stepping: 15,
+            useCurrent: false,
+            defaultDate: moment(dateStart)
+        });
+
+        $('#time_end').datetimepicker({
+            inline: true,
+            locale: 'de',
+            format: 'LT',
+            stepping: 15,
+            useCurrent: false,
+            defaultDate: moment(dateEnd)
+        });
+
+        $("#time_start").on("change.datetimepicker", function (e) {
+
+            let endDate = $('#time_end').datetimepicker('viewDate');
+            if (e.date >= endDate) {
+                $('#time_end').datetimepicker('date', endDate.add(15, 'minutes'));
+            }
+        });
+
+        $("#time_end").on("change.datetimepicker", function (e) {
+
+            let startDate = $('#time_start').datetimepicker('viewDate');
+            if (e.date <= startDate) {
+                $('#time_start').datetimepicker('date', startDate.subtract(15, 'minutes'));
+            }
+        });
+    });
+</script>

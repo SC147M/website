@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Datenschutz{% endblock %}
+
+{% block body %}
+    <div class="imprint">
+        <div class="container main-container">
+
+            <div class="row">
+                <div class="col-12">
+                    <canvas id="canvas" width="300" height="700"></canvas>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="module" src="/build/js/game/game.js">
+        console.log('sdfdsfdsfsdf');
+        const game = new Game('canvas');
+        game.run();
+    </script>
+    <script type="module">
+        console.log('sdfdsfdsfsdf');
+        const game = new Game('canvas');
+        game.run();
+    </script>
+{% endblock %}

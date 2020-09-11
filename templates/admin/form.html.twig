@@ -1,0 +1,23 @@
+{% block _news_custom_media_widget %}
+    {{ form_widget(form) }}
+    <img id="news_image" class="img-fluid" style="width: 350px;" />
+    <script>
+        loadImage($('#news_media').val());
+
+        $('#news_media').change(function() {
+            const id = $(this).val();
+            loadImage(id);
+        });
+
+        function loadImage(id) {
+            if (!id) {
+                $('#news_image').attr('src', '');
+                return;
+            }
+            $.get('/media/' + id, (data) => {
+               $('#news_image').attr('src', data);
+            });
+        }
+    </script>
+{% endblock %}
+

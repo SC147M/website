@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Spielbetrieb{% endblock %}
+
+{% block body %}
+    <div class="club">
+        <div class="container main-container">
+            <div class="row">
+                <div class="col-12 mt-4">
+                    <h2>Spielbetrieb</h2>
+
+                    <div id="calendar"></div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-lg-6 mt-4">
+                    <h2>Heimspiele 1. Mannschaft</h2>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                            {% for reservation in league_1_games %}
+                                <tr>
+                                    <th scope="row"><strong>{{ reservation.start | date('d.m.Y') }}</strong></th>
+                                    <td>{{ reservation.comment | raw }}
+                                        <p>Beginn: {{ reservation.start | date('H:i') }} Uhr</p>
+                                    </td>
+                                </tr>
+
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 mt-4">
+                    <h2>Heimspiele 2. Mannschaft</h2>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                            {% for reservation in league_2_games %}
+                                <tr>
+                                    <th scope="row"><strong>{{ reservation.start | date('d.m.Y') }}</strong></th>
+                                    <td>{{ reservation.comment | raw }}
+                                        <p>Beginn: {{ reservation.start | date('H:i') }} Uhr</p>
+                                    </td>
+                                </tr>
+
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h5 class="modal-title" id="eventModalLabel"></h5>
+                        <div class="small">Erstellt von <span id="user"></span> am <span id="created_at"></span> Uhr
+                        </div>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div><span id="date"></span></div>
+                    <div><span id="tables"></span></div>
+                    <div class="mt-3"><span class="strong">Teilnehmer:</span> <span id="participants"></span></div>
+                    <div id="comment-wrapper" class="mt-3">
+                        <div class="font-weight-bold">Kommentar:</div>
+                        <div class="calendar-comment"><p id="comment"></p></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schliessen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/vendors~calendar.js') }}"></script>
+    <script src="{{ asset('build/calendar.js') }}"></script>
+{% endblock %}

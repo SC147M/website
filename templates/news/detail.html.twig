@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ news.title }}{% endblock %}
+
+{% block body %}
+    <div class="club">
+        <div class="container main-container">
+            <div class="row">
+                <div class="col-12 mt-4 mb-3">
+                    <h1>{{ news.title }}</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8">
+                    <article>
+                        {% if news.media %}
+                            <div><img class="img-fluid"
+                                      src="{{ vich_uploader_asset(news.media, 'imageFile') | imagine_filter('full_news_retina') }}"
+                                      alt="{{ news.title }}">
+                            </div>
+                        {% endif %}
+
+                        <p class="mt-2"><strong>{{ news.caption | nl2br }}</strong></p>
+                        {{ news.body | raw }}
+                        <p>
+                            <small>{{ news.createdat | date("d.m.Y") }},
+                                {{ news.user.firstname }}</small>
+                        </p>
+                    </article>
+                    {% if is_granted('ROLE_PENDING') %}
+                    {{ form_start(form) }}
+                    {{ form_row(form.message) }}
+                    <button class="btn btn-success">Kommentar verfassen</button>
+                    {{ form_end(form) }}
+                    {% endif %}
+
+                    <ul class="list-group list-group-flush">
+                        {% for comment in news.comments %}
+                            <li class="list-group-item news-list-item">
+                                    <h5>{{ comment.user.firstname }}</h5>
+                                    <p>{{ comment.message | nl2br }}</p>
+
+                            </li>
+                        {% endfor %}
+                    </ul>
+
+
+                </div>
+                <div class="col-lg-4">
+                    <h3>Verwandte Meldungen</h3>
+                    <ul class="list-group list-group-flush">
+                        {% for newsItem in related %}
+                            <li class="list-group-item news-list-item">
+                                <a href="{{ path('news_detail', {id: newsItem.id, slug: newsItem.slug}) }}">
+                                    <h5>{{ newsItem.title }}</h5>
+
+
+                                    <p>{{ newsItem.caption | nl2br }}</p>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

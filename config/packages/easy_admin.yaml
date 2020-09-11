@@ -1,0 +1,120 @@
+easy_admin:
+  design:
+    form_theme: # Both themes are needed for ckeditor integration
+      - "@EasyAdmin/form/bootstrap_4.html.twig"
+      - "@FOSCKEditor/Form/ckeditor_widget.html.twig"
+      - 'admin/form.html.twig'
+    menu:
+      - { label: 'Homepage' }
+      - { label: 'Homepage', url: '/', rel: 'index' }
+      - { label: 'Administration' }
+      - { entity: 'News', permission: 'ROLE_CONTENT', children: ['News', 'Media', 'Categories', 'Tags'] }
+
+      - { entity: 'User', permission: 'ROLE_ADMIN' }
+      - { entity: 'Reservation', permission: 'ROLE_ADMIN' }
+      - { entity: 'Table', permission: 'ROLE_ADMIN' }
+  site_name: Snooker Club 147 Admin
+
+  formats:
+    date:     'd.m.Y'
+    time:     'H:i'
+    datetime: 'd.m.Y H:i'
+
+  entities:
+    Media:
+      item_permission: 'ROLE_CONTENT'
+      class: App\Entity\Media
+      list:
+        fields:
+          - id
+          - name
+          - { property: 'image', type: 'image', base_path: '%app.path.news_images%' }
+          - news
+          - createdAt
+      form:
+        fields:
+        - name
+        - { property: 'imageFile', type: 'vich_image' }
+    News:
+      item_permission: 'ROLE_CONTENT'
+      class: App\Entity\News
+      list:
+        fields:
+          - id
+          - title
+          - user
+          - views
+          - tags
+          - createdAt
+      form:
+        fields:
+          - title
+          - category
+          - { property: tags, type_options: { 'by_reference': false }  }
+          - { property: media, type_options: { block_name: 'custom_media' } }
+          - { property: 'caption', type: 'textarea' }
+          - { property: 'body', type: 'fos_ckeditor' }
+    Tags:
+      item_permission: 'ROLE_CONTENT'
+      class: App\Entity\Tag
+      form:
+        fields:
+        - name
+    Categories:
+      item_permission: 'ROLE_CONTENT'
+      class: App\Entity\Category
+      form:
+        fields:
+        - name
+    User:
+      item_permission: 'ROLE_ADMIN'
+      class: App\Entity\User
+      list:
+        fields:
+          - id
+          - firstName
+          - lastName
+          - { property: 'email', type: 'email' }
+          - { property: 'roles', template: 'translated.html.twig'  }
+          - createdAt
+      form:
+        fields:
+          - firstName
+          - lastName
+          - email
+          - property: 'roles'
+            type: 'choice'
+            type_options:
+              mapped: true
+              expanded: true
+              multiple: true
+              choices: { 'ROLE_PENDING': 'ROLE_PENDING', 'ROLE_USER': 'ROLE_USER', 'ROLE_CONTENT': 'ROLE_CONTENT', 'ROLE_ADMIN': 'ROLE_ADMIN' }
+
+
+    Reservation:
+      item_permission: 'ROLE_ADMIN'
+      class: App\Entity\Reservation
+      list:
+        fields:
+          - start
+          - end
+          - tables
+          - user
+          - property: 'type'
+      form:
+        fields:
+          - start
+          - end
+          - tables
+          - participants
+          - { property: 'comment', type: 'fos_ckeditor' }
+          - property: 'type'
+            type: 'choice'
+            type_options:
+              mapped: true
+              expanded: false
+              multiple: false
+              choices: { 'Tischreservierung': '1', 'Ligaspiel 1. Mannschaft': '2', 'Ligaspiel 2. Mannschaft': '3', 'Turnier': '4', 'Sonstiges': '5' }
+    Table:
+      item_permission: 'ROLE_ADMIN'
+      class: App\Entity\Table
