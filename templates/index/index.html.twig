@@ -57,7 +57,7 @@
                             <tbody>
                             {% for reservation in reservations %}
                                 <tr>
-                                    <th scope="row">{{ reservation.start | date('d.m.') }} {{ reservation.start | date('H:i') }}
+                                    <th scope="row" title="{{ reservation.comment }}">{{ reservation.start | date('d.m.') }} {{ reservation.start | date('H:i') }}
                                         - {{ reservation.end | date('H:i') }}</th>
                                     <td>
                                         {% for table in reservation.tables %}
