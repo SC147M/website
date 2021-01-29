@@ -60,21 +60,27 @@
                     <li class="nav-item {% if route == 'index' %}active{% endif %}">
                         <a class="nav-link" href="{{ path('index') }}">Home</a>
                     </li>
-                    <li class="nav-item {% if route == 'news' or route == 'news_detail' %}active{% endif %}">
-                        <a class="nav-link" href="{{ path('news') }}">Aktuelles</a>
-                    </li>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                            aria-haspopup="true" aria-expanded="false">Verein</a>
                         <div class="dropdown-menu bg-green shadow">
-                            <a class="dropdown-item" href="{{ path('club') }}">Über den Club</a>
-                            <a class="dropdown-item" href="{{ path('hygiene') }}">Hygienekonzept während Corona</a>
-                            <a class="dropdown-item" href="{{ path('membership') }}">Mitgliedschaft</a>
+                            <a class="dropdown-item" href="{{ path('club') }}">Unser Club</a>
                             <a class="dropdown-item" href="{{ path('map') }}">Anfahrt</a>
+                            <a class="dropdown-item" href="{{ path('membership') }}">Mitgliedschaft</a>
+                            <a class="dropdown-item" href="{{ path('news') }}">Nachrichten</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ path('hygiene') }}">Corona</a>
                         </div>
                     </li>
-                    <li class="nav-item mr-auto {% if route == 'fixtures' %}active{% endif %}">
-                        <a class="nav-link" href="{{ path('fixtures') }}">Spielbetrieb</a>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                           aria-haspopup="true" aria-expanded="false">Spielbetrieb</a>
+                        <div class="dropdown-menu bg-green shadow">
+                            <a class="dropdown-item" href="{{ path('teams') }}">Mannschaften</a>
+                            <a class="dropdown-item" href="{{ path('fixtures') }}">Kalender</a>
+                        </div>
                     </li>
 
                     <li class="nav-item mr-auto {% if route == 'service' %}active{% endif %}">
@@ -83,7 +89,7 @@
                     {% if app.user %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                               aria-haspopup="true" aria-expanded="false">Mein Verein</a>
+                               aria-haspopup="true" aria-expanded="false">Mitglieder</a>
                             <div class="dropdown-menu bg-green shadow">
                                 {% if is_granted('ROLE_CONTENT') %}
                                     <a class="dropdown-item" href="{{ path('easyadmin') }}"><i class="fa fa-table"
@@ -93,10 +99,10 @@
                                 {% if is_granted('ROLE_USER') %}
                                     <a class="dropdown-item" href="{{ path('reservation_index') }}"><i
                                                 class="fa fa-calendar" aria-hidden="true"></i>
-                                        Meine Reservierungen</a>
-                                    <a class="dropdown-item" href="{{ path('reservation_new') }}"><i
+                                        Tischreservierung</a>
+                                    <a class="dropdown-item" href="https://sc147mchn.webling.eu/webling.php" target="_blank"><i
                                                 class="fa fa-calendar" aria-hidden="true"></i>
-                                        Tisch reservieren</a>
+                                                Vereinssoftware</a>
                                 {% endif %}
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ path('app_logout') }}">

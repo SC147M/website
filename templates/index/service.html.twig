@@ -12,72 +12,47 @@
             </div>
             <div class="row">
                 <div class="col-lg-6 mt-4">
-                    <h3>Dokumente</h3>
+                    <h3>Formulare</h3>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><a href="/downloads/mitgliedsantrag.pdf" target="_blank"><i
-                                        class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                                Aufnahmeantrag</a></li>
-                        <li class="list-group-item"><a href="/downloads/satzung_stand_03_2018.pdf" target="_blank"><i
-                                        class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                                Satzung</a></li>
-                        <li class="list-group-item"><a href="/downloads/datenschutzerklaerung.pdf" target="_blank"><i
-                                        class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                                Datenschutzerklärung</a></li>
-                        <li class="list-group-item"><a href="/downloads/beitragsordnung_ab_1.2.2020.pdf"
-                                                       target="_blank"><i class="fa fa-file-pdf-o"
-                                                                          aria-hidden="true"></i>
-                                Beitragsordnung</a></li>
+                        <li class="list-group-item"><a href="/downloads/mitgliedsantrag.pdf" target="_blank">
+                            <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Aufnahmeantrag</a></li>
+                        <li class="list-group-item"><a href="/downloads/datenschutzerklaerung.pdf" target="_blank">
+                            <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Datenschutzerklärung</a></li>
                     </ul>
-                    {% if is_granted('ROLE_USER') %}
+
                     <div class="mt-4">
-                        <h3>Sc147m</h3>
+                        <h3>Links</h3>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><a href="{{ path('reservation_new') }}"><i class="fa fa-link"
-                                                                                                   aria-hidden="true"></i>
-                                    Tischreservierung</a>
-                            </li>
-                            <li class="list-group-item"><a target="_blank"
-                                                           href="https://sc147mchn.webling.eu/webling.php"><i
-                                            class="fa fa-external-link" aria-hidden="true"></i> Mitgliederzugang zur
-                                    Vereinssoftware</a></li>
+                            <li class="list-group-item"><a href="https://bbv.billardarea.de/" target="_blank">
+                                <i class="fa fa-external-link" aria-hidden="true"></i> BillardArea</a></li>
+                            <li class="list-group-item"><a href="http://snookerpro.de/" target="_blank">
+                                <i class="fa fa-external-link" aria-hidden="true"></i> Snooker Pro</a></li>
                         </ul>
                     </div>
-                    {% endif %}
                 </div>
                 <div class="col-lg-6 mt-4">
-                    <h3>Links</h3>
+                    <h3>Verbände und Organisationen</h3>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><a href="https://bbv.billardarea.de/content/" target="_blank"><i
-                                        class="fa fa-external-link" aria-hidden="true"></i> BBV</a></li>
-                        <li class="list-group-item"><a href="https://live.billard.bayern/" target="_blank"><i
-                                        class="fa fa-external-link" aria-hidden="true"></i> BBV Live</a></li>
-                        <li class="list-group-item"><a href="https://portal.billardarea.de/content/" target="_blank"><i
-                                        class="fa fa-external-link" aria-hidden="true"></i> DBU</a></li>
-                        <li class="list-group-item"><a href="https://www.german-snooker-tour.de/" target="_blank"><i
-                                        class="fa fa-external-link" aria-hidden="true"></i> GST (German Snooker
-                                Tour)</a></li>
-                        <li class="list-group-item"><a href="https://www.blsv.de/" target="_blank"><i
-                                        class="fa fa-external-link" aria-hidden="true"></i> BLSV</a></li>
-                        <li class="list-group-item"><a href="http://snookerpro.de/" target="_blank"><i
-                                        class="fa fa-external-link" aria-hidden="true"></i> Snooker Pro</a></li>
-                        <li class="list-group-item"><a href="mailto:vollzieherman@t-online.de" target="_blank"><i
-                                        class="fa fa-envelope-o" aria-hidden="true"></i> Jürgen
-                                Kesseler (Queues und Koffer)</a></li>
-                        <li class="list-group-item"><a href="http://www.ole-steiner.de/" target="_blank"><i
-                                        class="fa fa-external-link" aria-hidden="true"></i> Ole Steiner</a></li>
-                        <li class="list-group-item"><a
-                                    href="https://www.nada.de/de/nationale-anti-doping-agentur-deutschland/"
-                                    target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> NADA-Homepage</a>
+                        <li class="list-group-item"><a href="https://bbv.billardarea.de/content/" target="_blank">
+                            <i class="fa fa-external-link" aria-hidden="true"></i> Bayerischer Billardverband (BBV)</a></li>
+                        <li class="list-group-item"><a href="https://portal.billardarea.de/content/" target="_blank">
+                            <i class="fa fa-external-link" aria-hidden="true"></i> Deutsche Billard-Union (DBU)</a></li>
+                        <li class="list-group-item"><a href="https://www.german-snooker-tour.de/" target="_blank">
+                            <i class="fa fa-external-link" aria-hidden="true"></i> German Snooker (GST)</a></li>
+                        <li class="list-group-item"><a href="https://www.nada.de/de/nationale-anti-doping-agentur-deutschland/" target="_blank">
+                            <i class="fa fa-external-link" aria-hidden="true"></i> Nationale Anti Doping Agentur (NADA)</a>
                         </li>
-                        <li class="list-group-item"><a href="https://www.nada.de/service-infos/downloads/"
-                                                       target="_blank"><i class="fa fa-external-link"
-                                                                          aria-hidden="true"></i> NADA Downloads</a>
-                        </li>
-                        <li class="list-group-item"><a href="https://www.nada.de/medizin/nadamed/#.VJhCrF4DlA"
-                                                       target="_blank"><i class="fa fa-external-link"
-                                                                          aria-hidden="true"></i> Medikamenten-Datenbank
-                                NADAmed</a></li>
                     </ul>
+
+                    <div class="mt-4">
+                        <h3>Material und Fortbildung</h3>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><a href="mailto:vollzieherman@t-online.de" target="_blank">
+                                <i class="fa fa-envelope-o" aria-hidden="true"></i> Jürgen Kesseler (Queues und Koffer)</a></li>
+                            <li class="list-group-item"><a href="http://www.ole-steiner.de/" target="_blank">
+                                <i class="fa fa-external-link" aria-hidden="true"></i> Ole Steiner</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
