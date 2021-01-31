@@ -24,7 +24,8 @@ class IndexController extends AbstractController
         $today = (new DateTime())->setTime(0, 0, 0, 0);
 
         $tourneys = $reservationRepository->findByTypes(Reservation::TYPE_TOURNEY, $today);
-        $reservations = $reservationRepository->findByTypes([Reservation::TYPE_OTHERS], $today);
+        $reservations = $reservationRepository->findByTypes([Reservation::TYPE_TABLE, Reservation::TYPE_OTHERS], $today);
+
         $news = $newsRepository->findOneBy([], ['createdAt' => 'desc']);
 
         return $this->render(
@@ -78,10 +79,10 @@ class IndexController extends AbstractController
     }
 
     /**
-     * @Route("/game", name="game")
+     * @Route("/teams", name="teams")
      */
-    public function game()
+    public function teams()
     {
-        return $this->render('index/game.html.twig');
+        return $this->render('index/teams.html.twig');
     }
 }
