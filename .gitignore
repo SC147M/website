@@ -30,3 +30,4 @@ yarn-error.log
 ###< liip/imagine-bundle ###
 .DS_Store
 .idea
+.vscode/ftp-sync.json
