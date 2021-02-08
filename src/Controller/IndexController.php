@@ -85,4 +85,12 @@ class IndexController extends AbstractController
     {
         return $this->render('index/teams.html.twig');
     }
+    
+    /**
+     * @Route("/breaks", name="breaks")
+     */
+    public function breaks()
+    {
+        return $this->render('index/breaks.html.twig');
+    }
 }
