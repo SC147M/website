@@ -93,4 +93,12 @@ class IndexController extends AbstractController
     {
         return $this->render('index/breaks.html.twig');
     }
+     
+    /**
+     * @Route("/rulesreloaded", name="rulesreloaded")
+     */
+    public function rulesreloaded()
+    {
+        return $this->render('index/rulesreloaded.html.twig');
+    }
 }
