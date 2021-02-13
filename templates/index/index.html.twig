@@ -56,6 +56,7 @@
                         <table class="table">
                             <tbody>
                             {% for reservation in reservations %}
+                                {% if reservation.start < "now"|date_modify("+21 days") %}
                                 <tr>
                                     <th scope="row" title="{{ reservation.comment }}">{{ reservation.start | date('d.m.') }} {{ reservation.start | date('H:i') }}
                                         - {{ reservation.end | date('H:i') }}</th>
@@ -73,6 +74,7 @@
                                         {% endfor %}
                                     </td>
                                 </tr>
+                                {% endif %}
                             {% else %}
                                 <tr>
                                     <th>Derzeit keine Reservierungen vorhanden.</th>
