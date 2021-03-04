@@ -95,10 +95,10 @@ class IndexController extends AbstractController
     }
      
     /**
-     * @Route("/rulesreloaded", name="rulesreloaded")
+     * @Route("/rules", name="rules")
      */
-    public function rulesreloaded()
+    public function rules()
     {
-        return $this->render('index/rulesreloaded.html.twig');
+        return $this->render('index/rules.html.twig');
     }
 }
