@@ -94,7 +94,7 @@ class ApiController extends AbstractController
         Request $request
     ): JsonResponse
     {
-        exec('../deploy.sh');
-        return $this->json(['test 2']);
+        system('../deploy.sh', $r);
+        return $this->json([$r]);
     }
 }
