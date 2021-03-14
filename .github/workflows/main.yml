@@ -33,4 +33,4 @@ jobs:
           ./deploy.sh
         host: ${{ secrets.SSHHOST}}
         user: ${{ secrets.SSHUSER}}
-        password: ${{ secrets.SSHPASSWORD}}
+        password: cSxRHy5YNOjfF9ia9edC
