@@ -34,3 +34,4 @@ jobs:
         host: ${{ secrets.SSHHOST}}
         user: ${{ secrets.SSHUSER}}
         key: "${{ secrets.PRIVATE_KEY}}"
+        args: "-tt"
