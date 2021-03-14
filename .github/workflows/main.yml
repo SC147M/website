@@ -32,5 +32,5 @@ jobs:
           cd /web/m-snooker/
           ./deploy.sh
         host: ${{ secrets.SSHHOST}}
-        user: ${{ secrets.SSHUSER}}
-        password: cSxRHy5YNOjfF9ia9edC
+        username: ${{ secrets.SSHUSER}}
+        password: ${{ secrets.PASSWORD}}
