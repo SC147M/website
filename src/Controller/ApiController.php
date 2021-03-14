@@ -95,5 +95,6 @@ class ApiController extends AbstractController
     ): JsonResponse
     {
         exec('../deploy.sh');
+        return $this->json([]);
     }
 }
