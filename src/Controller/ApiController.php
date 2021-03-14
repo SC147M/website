@@ -94,6 +94,6 @@ class ApiController extends AbstractController
         Request $request
     ): JsonResponse
     {
-        die('Markus, ich erwarte jetzt schon ein paar Blumen von dir, dass jetzt alles doch geklappt hat :)');
+        die('Markus, ich erwarte jetzt schon ein paar Blumen von dir, dass alles doch geklappt hat :)');
     }
 }
