@@ -33,5 +33,5 @@ jobs:
           ./deploy.sh
         host: ${{ secrets.SSHHOST}}
         user: ${{ secrets.SSHUSER}}
-        password: "${{ secrets.SSHPASSWORD}}"
+        pass: "${{ secrets.SSHPASSWORD}}"
         args: "-tt"
