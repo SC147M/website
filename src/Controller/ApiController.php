@@ -83,4 +83,17 @@ class ApiController extends AbstractController
 
         return $this->json($result);
     }
+
+    /**
+     * @Route("/api/deploy", name="api_deploy")
+     * @param Request               $request
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function deploy(
+        Request $request
+    ): JsonResponse
+    {
+        exec('../deploy.sh');
+    }
 }
