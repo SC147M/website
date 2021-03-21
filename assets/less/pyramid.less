@@ -1,7 +1,10 @@
 .pyramid {
   display: flex;
   flex-flow: column;
-  gap: 5px
+  gap: 10px;
+  background: linear-gradient(-45deg, #aaa 0%, #eee 100%);
+  padding: 20px 0;
+  border-radius: 5px;
 }
 
 .pyramid-row {
@@ -19,11 +22,13 @@
   height: 80px;
   display: grid;
   grid-template-rows: 60px auto;
+  box-shadow: 0 2px 5px #333;
+  border-radius: 5px;
 
   &.player {
-    background: #eed541;
+    background: linear-gradient(0deg, #e5d445 0%, #f2eb93 100%);
     .rank {
-      background: #a87617;
+      background: linear-gradient(0deg, #534b16 0%, #a1996e 100%);
       color: #fff;
       font-weight: bold;
       font-size: 0.8rem;
@@ -46,7 +51,53 @@
   }
 
   &.challengeable {
-    background: #ddefb4;
+    background: #cfe8d0;
+    .rank {
+      background: linear-gradient(0deg, #195325 0%, #3ca159 100%);
+      color: #fff;
+      font-weight: bold;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .pyramid {
+    display: block;
+    counter-reset: line;
+    background: transparent;
+  }
+
+  .pyramid-row {
+    display: block;
+
+    &&::before {
+      counter-increment: line;
+      content: "Reihe: " counter(line);
+      display: block;
+      text-align: left;
+      font-size: 0.7rem;
+      padding: 3px;
+    }
+  }
+  .pyramid-card {
+    width: auto;
+    height: auto;
+    box-shadow: none;
+    border-radius: 0;
+
+    display: flex;
+    flex-direction: row-reverse;
+    margin-bottom: 2px;
+
+    .rank {
+      width: 40px;
+      padding: 10px;
+    }
+    .info {
+      text-align: left;
+      padding: 10px;
+    }
   }
 }
 
@@ -55,5 +106,15 @@
 
   &:after {
     content: ' ';
+  }
+}
+
+.matchresult {
+  display: grid;
+  grid-template-columns: 70px auto;
+
+  .opponents {
+    display: flex;
+   justify-content: space-between;
   }
 }

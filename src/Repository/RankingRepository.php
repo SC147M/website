@@ -33,20 +33,39 @@ class RankingRepository extends ServiceEntityRepository
             ->setParameter('max', $max)
             ->orderBy('r.position', 'ASC')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
-
-    /*
-    public function findOneBySomeField($value): ?Ranking
+    /**
+     * @param int $position
+     * @return mixed
+     */
+    public function increasePositions(int $position)
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
+            ->update()
+            ->set('r.position', 'r.position+1')
+            ->where('r.position >= :position')
+            ->setParameter('position', $position)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->execute();
     }
-    */
+
+    /**
+     * @param int $startPosition
+     * @param int $endPosition
+     * @return mixed
+     */
+    public function increasePositionsFromTo(int $startPosition, int $endPosition)
+    {
+        return $this->createQueryBuilder('r')
+            ->update()
+            ->set('r.position', 'r.position+1')
+            ->where('r.position >= :startPosition')
+            ->andWhere('r.position <= :endPosition')
+            ->setParameter('startPosition', $startPosition)
+            ->setParameter('endPosition', $endPosition)
+            ->getQuery()
+            ->execute();
+    }
 }

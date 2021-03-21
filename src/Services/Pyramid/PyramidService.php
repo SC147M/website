@@ -21,6 +21,9 @@ use Symfony\Component\Security\Core\Security;
 
 class PyramidService
 {
+    const RESULT_LOSS = 0;
+    const RESULT_WIN = 1;
+
     /**
      * @var MatchRepository
      */
@@ -69,6 +72,7 @@ class PyramidService
     {
         $opponents = [];
         $ranking = $user->getRanking();
+
         if ($ranking === null) {
             $users = $this->userRepository->findAll();
             foreach ($users as $opponent) {
@@ -76,11 +80,24 @@ class PyramidService
                     $opponents[] = $opponent;
                 }
             }
+
+            usort($opponents, function (User $a, User $b) {
+                if ($a->getRanking() && $b->getRanking()) {
+                    return ($a->getRanking()->getPosition() <  $b->getRanking()->getPosition()) ? -1 : 1;
+                } elseif ($a->getRanking() && $b->getRanking() === null) {
+                    return -1;
+                } elseif ($a->getRanking() === null && $b->getRanking()) {
+                    return 1;
+                } else {
+                    return (strtolower($a->getShortName()) > strtolower($b->getShortName())) ? 1 : -1;
+                }
+            });
+
+
         } else {
             $opponents = $this->getOpponentsByRanking($user);
         }
 
-       //
         return $opponents;
     }
 
@@ -162,23 +179,29 @@ class PyramidService
     }
 
 
+    /**
+     * @param User $user
+     * @param User $opponent
+     * @param int  $result
+     */
     public function reportMatch(User $user, User $opponent, int $result)
     {
         $userRanking = $user->getRanking();
         $opponentRanking = $opponent->getRanking();
+        $match = new Match();
+        $match
+            ->setUser1($user)
+            ->setUser2($opponent)
+            ->setCreated(new \DateTime())
+            ->setUpdated(new \DateTime())
+            ->setState(Match::STATE_DONE)
+            ->setResult($result);
+        $this->manager->persist($match);
 
+        // user unranked
         if ($userRanking === null) {
-            if ($opponentRanking === null) {
-                $match = new Match();
-                $match
-                    ->setUser1($user)
-                    ->setUser2($opponent)
-                    ->setCreated(new \DateTime())
-                    ->setUpdated(new \DateTime())
-                    ->setState(Match::STATE_DONE)
-                    ->setResult($result);
 
-                $this->manager->persist($match);
+            if ($opponentRanking === null) {
 
                 $lastRank = $this->rankingRepository->findOneBy([], ['position' => 'DESC']);
                 $lastRankingPosition = 1;
@@ -187,7 +210,7 @@ class PyramidService
                 }
 
 
-                if ($result === 0) {
+                if ($result === self::RESULT_LOSS) {
                     $userNewPosition = $lastRankingPosition + 1;
                     $opponentNewPosition = $lastRankingPosition;
                 } else {
@@ -207,15 +230,66 @@ class PyramidService
                     ->setPosition($opponentNewPosition);
                 $this->manager->persist($rankOpponent);
 
-                $this->manager->flush();
 
-                die();
+            } else {
+                if ($result === self::RESULT_LOSS) {
+                    $lastRank = $this->rankingRepository->findOneBy([], ['position' => 'DESC']);
+                    $lastPosition = $lastRank->getPosition();
+                    $lastPosition++;
+                    $rankUser = new Ranking();
+                    $rankUser
+                        ->setUser($user)
+                        ->setPosition($lastPosition);
+                    $this->manager->persist($rankUser);
+                }
+            }
+            // opponent unranked
+        } elseif ($opponent->getRanking() === null) {
+            if ($result === self::RESULT_LOSS) {
+                $ranking = $user->getRanking();
+                $opponentNewPosition = $ranking->getPosition();
+                $this->rankingRepository->increasePositions($opponentNewPosition);
+            } else {
+                $lastRank = $this->rankingRepository->findOneBy([], ['position' => 'DESC']);
+                $lastRankingPosition = $lastRank->getPosition();
+                $opponentNewPosition = $lastRankingPosition + 1;
+            }
+
+            $rankOpponent = new Ranking();
+            $rankOpponent->setUser($opponent);
+            $rankOpponent->setPosition($opponentNewPosition);
+            $this->manager->persist($rankOpponent);
+
+            // both ranked
+        } else {
+
+            $rankingOpponent = $opponent->getRanking();
+            $userRanking = $user->getRanking();
+
+            if ($result === self::RESULT_LOSS) {
+                // opponent was ranked behind user
+                if ($rankingOpponent->getPosition() > $userRanking->getPosition()) {
+
+                    $this->rankingRepository->increasePositionsFromTo($userRanking->getPosition(), $rankingOpponent->getPosition());
+
+                    $opponentNewPosition = $userRanking->getPosition();
+                    $rankingOpponent->setPosition($opponentNewPosition);
+
+                    $this->manager->persist($rankingOpponent);
+                }
 
             }
         }
+
+        $this->manager->flush();
     }
 
 
+    /**
+     * @param User $user
+     * @param User $challenger
+     * @return boolå
+     */
     private function canPlay(User $user, User $challenger): bool
     {
         $roles = $this->roleHierarchy->getReachableRoleNames($user->getRoles());
