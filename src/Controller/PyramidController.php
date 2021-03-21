@@ -126,7 +126,7 @@ class PyramidController extends AbstractController
          */
         $row = $this->getRow($rank);
 
-        if ($rank <= 4) {
+        if ($rank <= 3) {
             return 1;
         }
 
