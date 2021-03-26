@@ -43,3 +43,4 @@ security:
   access_control:
    - { path: ^/admin, roles: ROLE_CONTENT }
    - { path: ^/reservation, roles: ROLE_USER }
+   - { path: ^/pyramid, roles: ROLE_USER }

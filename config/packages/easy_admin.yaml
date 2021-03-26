@@ -13,6 +13,7 @@ easy_admin:
       - { entity: 'User', permission: 'ROLE_ADMIN' }
       - { entity: 'Reservation', permission: 'ROLE_ADMIN' }
       - { entity: 'Table', permission: 'ROLE_ADMIN' }
+      - { entity: 'Pyramid', permission: 'ROLE_ADMIN',  children: ['Ranking', 'Matches'] }
   site_name: Snooker Club 147 Admin
 
   formats:
@@ -90,7 +91,6 @@ easy_admin:
               multiple: true
               choices: { 'ROLE_PENDING': 'ROLE_PENDING', 'ROLE_USER': 'ROLE_USER', 'ROLE_CONTENT': 'ROLE_CONTENT', 'ROLE_ADMIN': 'ROLE_ADMIN' }
 
-
     Reservation:
       item_permission: 'ROLE_ADMIN'
       class: App\Entity\Reservation
@@ -118,3 +118,19 @@ easy_admin:
     Table:
       item_permission: 'ROLE_ADMIN'
       class: App\Entity\Table
+
+    Pyramid:
+      item_permission: 'ROLE_ADMIN'
+      class: App\Entity\Ranking
+    Ranking:
+      item_permission: 'ROLE_ADMIN'
+      class: App\Entity\Ranking
+      list:
+        max_results: 50
+        fields:
+          - position
+          - user
+        sort: ['position', 'ASC']
+    Matches:
+      item_permission: 'ROLE_ADMIN'
+      class: App\Entity\Match
