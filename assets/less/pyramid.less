@@ -5,7 +5,35 @@
   background: linear-gradient(-45deg, #aaa 0%, #eee 100%);
   padding: 20px 0;
   border-radius: 5px;
+
+  &__score_wrapper {
+    display: grid;
+    grid-template-columns: 48% auto 48%;
+    align-items: center;
+    margin: 5px 0 5px 0;
+  }
+
+  &__score {
+    width: 100%;
+    font-size: 2.5rem;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+
+  &__score_delimiter {
+    text-align: center;
+    font-size: 2.5rem;
+  }
+
+  &__submit {
+    width: 100%;
+    background: linear-gradient(0, #a49300 0%, #dcc500 100%);
+    border: none;
+  }
 }
+
+
 
 .pyramid-row {
   display: flex;
@@ -80,6 +108,7 @@
       padding: 3px;
     }
   }
+
   .pyramid-card {
     width: auto;
     height: auto;
@@ -110,11 +139,8 @@
 }
 
 .matchresult {
-  display: grid;
-  grid-template-columns: 70px auto;
-
-  .opponents {
     display: flex;
-   justify-content: space-between;
-  }
+    justify-content: space-between;
+
 }
+

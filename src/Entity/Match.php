@@ -55,6 +55,16 @@ class Match
      */
     private $result;
 
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $score1;
+
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $score2;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -128,6 +138,30 @@ class Match
     public function setResult(int $result): self
     {
         $this->result = $result;
+
+        return $this;
+    }
+
+    public function getScore1(): ?int
+    {
+        return $this->score1;
+    }
+
+    public function setScore1(int $score1): self
+    {
+        $this->score1 = $score1;
+
+        return $this;
+    }
+
+    public function getScore2(): ?int
+    {
+        return $this->score2;
+    }
+
+    public function setScore2(int $score2): self
+    {
+        $this->score2 = $score2;
 
         return $this;
     }

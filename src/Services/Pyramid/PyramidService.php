@@ -68,32 +68,16 @@ class PyramidService
         $this->manager = $manager;
     }
 
+    /**
+     * @param User $user
+     * @return array|User[]
+     */
     public function getValidOpponents(User $user): array
     {
-        $opponents = [];
         $ranking = $user->getRanking();
 
         if ($ranking === null) {
-            $users = $this->userRepository->findAll();
-            foreach ($users as $opponent) {
-                if ($this->canPlay($opponent, $user)) {
-                    $opponents[] = $opponent;
-                }
-            }
-
-            usort($opponents, function (User $a, User $b) {
-                if ($a->getRanking() && $b->getRanking()) {
-                    return ($a->getRanking()->getPosition() <  $b->getRanking()->getPosition()) ? -1 : 1;
-                } elseif ($a->getRanking() && $b->getRanking() === null) {
-                    return -1;
-                } elseif ($a->getRanking() === null && $b->getRanking()) {
-                    return 1;
-                } else {
-                    return (strtolower($a->getShortName()) > strtolower($b->getShortName())) ? 1 : -1;
-                }
-            });
-
-
+            $opponents = $this->getOpponentsWhenUnranked($user);
         } else {
             $opponents = $this->getOpponentsByRanking($user);
         }
@@ -101,25 +85,54 @@ class PyramidService
         return $opponents;
     }
 
-    private function getOpponentsByRanking(User $user)
+    /**
+     * @param User $user
+     * @return array|User[]
+     */
+    private function getOpponentsWhenUnranked(User $user): array
+    {
+        $opponents = [];
+        $lastPosition = $this->rankingRepository->findOneBy([], ['position' => 'desc'])->getPosition();
+        $lastRow = $this->getRow($lastPosition);
+
+        $users = $this->userRepository->findAll();
+        foreach ($users as $opponent) {
+            if ($this->canPlay($opponent, $user, $lastRow)) {
+                $opponents[] = $opponent;
+            }
+        }
+
+        usort($opponents, function (User $a, User $b) {
+            if ($a->getRanking() && $b->getRanking()) {
+                return ($a->getRanking()->getPosition() < $b->getRanking()->getPosition()) ? -1 : 1;
+            } elseif ($a->getRanking() && $b->getRanking() === null) {
+                return -1;
+            } elseif ($a->getRanking() === null && $b->getRanking()) {
+                return 1;
+            } else {
+                return (strtolower($a->getShortName()) > strtolower($b->getShortName())) ? 1 : -1;
+            }
+        });
+
+        return $opponents;
+    }
+
+    /**
+     * @param User $user
+     * @return array|User[]
+     */
+    private function getOpponentsByRanking(User $user): array
     {
         $minRank = $this->getMinChallengeRank($user->getRanking()->getPosition());
-        $maxRank = $this->getMaxChallengeRank($user->getRanking()->getPosition());
+        $maxRank = $user->getRanking()->getPosition();
 
         $rankings = $this->rankingRepository->findByInRange($minRank, $maxRank);
-        $unranked = $this->userRepository->findUnranked();
 
         $opponents = [];
 
         foreach ($rankings as $ranking) {
             if ($this->canPlay($ranking->getUser(), $user)) {
                 $opponents[] = $ranking->getUser();
-            }
-        }
-
-        foreach ($unranked as $item) {
-            if ($this->canPlay($item, $user)) {
-                $opponents[] = $item;
             }
         }
 
@@ -156,38 +169,19 @@ class PyramidService
         return $rank + 1 - $row;
     }
 
-
-    /**
-     * @param int $rank
-     * @return float|int
-     */
-    private function getMaxChallengeRank(int $rank): int
-    {
-        /*
-         *     1
-         *    2 3
-         *   4 5 6
-         *  7 8 9 10
-         */
-        $row = $this->getRow($rank);
-
-        if ($rank == 1) {
-            return 4;
-        }
-
-        return $rank + $row;
-    }
-
-
     /**
      * @param User $user
      * @param User $opponent
-     * @param int  $result
+     * @param int  $score1
+     * @param int  $score2
      */
-    public function reportMatch(User $user, User $opponent, int $result)
+    public function reportMatch(User $user, User $opponent, int $score1, int $score2)
     {
+        $result = ($score1 > $score2) ? self::RESULT_WIN : self::RESULT_LOSS;
+
         $userRanking = $user->getRanking();
         $opponentRanking = $opponent->getRanking();
+
         $match = new Match();
         $match
             ->setUser1($user)
@@ -195,15 +189,20 @@ class PyramidService
             ->setCreated(new \DateTime())
             ->setUpdated(new \DateTime())
             ->setState(Match::STATE_DONE)
-            ->setResult($result);
+            ->setResult($result)
+            ->setScore1($score1)
+            ->setScore2($score2);
+
         $this->manager->persist($match);
 
         // user unranked
         if ($userRanking === null) {
 
+            // opponent also unranked
             if ($opponentRanking === null) {
-
                 $lastRank = $this->rankingRepository->findOneBy([], ['position' => 'DESC']);
+
+                // empty pyramid
                 $lastRankingPosition = 1;
                 if ($lastRank !== null) {
                     $lastRankingPosition = $lastRank->getPosition();
@@ -211,11 +210,11 @@ class PyramidService
 
 
                 if ($result === self::RESULT_LOSS) {
-                    $userNewPosition = $lastRankingPosition + 1;
-                    $opponentNewPosition = $lastRankingPosition;
-                } else {
-                    $userNewPosition = $lastRankingPosition;
+                    $userNewPosition = $lastRankingPosition + 2;
                     $opponentNewPosition = $lastRankingPosition + 1;
+                } else {
+                    $userNewPosition = $lastRankingPosition + 1;
+                    $opponentNewPosition = $lastRankingPosition + 2;
                 }
 
                 $rankUser = new Ranking();
@@ -230,54 +229,35 @@ class PyramidService
                     ->setPosition($opponentNewPosition);
                 $this->manager->persist($rankOpponent);
 
-
+                // opponent ranked
             } else {
                 if ($result === self::RESULT_LOSS) {
                     $lastRank = $this->rankingRepository->findOneBy([], ['position' => 'DESC']);
                     $lastPosition = $lastRank->getPosition();
                     $lastPosition++;
-                    $rankUser = new Ranking();
-                    $rankUser
-                        ->setUser($user)
-                        ->setPosition($lastPosition);
-                    $this->manager->persist($rankUser);
+                    $userRankingPosition = $lastPosition;
+                } else {
+                    $userRankingPosition = $opponent->getRanking()->getPosition();
+                    $this->rankingRepository->increasePositions($userRankingPosition);
                 }
-            }
-            // opponent unranked
-        } elseif ($opponent->getRanking() === null) {
-            if ($result === self::RESULT_LOSS) {
-                $ranking = $user->getRanking();
-                $opponentNewPosition = $ranking->getPosition();
-                $this->rankingRepository->increasePositions($opponentNewPosition);
-            } else {
-                $lastRank = $this->rankingRepository->findOneBy([], ['position' => 'DESC']);
-                $lastRankingPosition = $lastRank->getPosition();
-                $opponentNewPosition = $lastRankingPosition + 1;
+
+                $rankUser = new Ranking();
+                $rankUser
+                    ->setUser($user)
+                    ->setPosition($userRankingPosition);
+                $this->manager->persist($rankUser);
             }
 
-            $rankOpponent = new Ranking();
-            $rankOpponent->setUser($opponent);
-            $rankOpponent->setPosition($opponentNewPosition);
-            $this->manager->persist($rankOpponent);
 
             // both ranked
         } else {
-
             $rankingOpponent = $opponent->getRanking();
             $userRanking = $user->getRanking();
 
-            if ($result === self::RESULT_LOSS) {
-                // opponent was ranked behind user
-                if ($rankingOpponent->getPosition() > $userRanking->getPosition()) {
-
-                    $this->rankingRepository->increasePositionsFromTo($userRanking->getPosition(), $rankingOpponent->getPosition());
-
-                    $opponentNewPosition = $userRanking->getPosition();
-                    $rankingOpponent->setPosition($opponentNewPosition);
-
-                    $this->manager->persist($rankingOpponent);
-                }
-
+            if ($result === self::RESULT_WIN && $userRanking->getPosition() > $rankingOpponent->getPosition()) {
+                $this->rankingRepository->increasePositionsFromTo($rankingOpponent->getPosition(), $userRanking->getPosition());
+                $userRanking->setPosition($rankingOpponent->getPosition());
+                $this->manager->persist($userRanking);
             }
         }
 
@@ -286,19 +266,36 @@ class PyramidService
 
 
     /**
-     * @param User $user
-     * @param User $challenger
-     * @return boolå
+     * @param User     $user
+     * @param User     $challenger
+     * @param int|null $lastRow
+     * @return bool
      */
-    private function canPlay(User $user, User $challenger): bool
+    private function canPlay(User $challenger, User $user, int $lastRow = null): bool
     {
-        $roles = $this->roleHierarchy->getReachableRoleNames($user->getRoles());
+        $challengerRoles = $this->roleHierarchy->getReachableRoleNames($challenger->getRoles());
+
 
         if ($user->getId() === $challenger->getId()) {
             return false;
         }
 
+        if ($user->getRanking() === null) {
+            if ($challenger->getRanking() === null) {
+                return in_array('ROLE_USER', $challengerRoles);
+            }
 
-        return in_array('ROLE_USER', $roles);
+            $position = $challenger->getRanking()->getPosition();
+            $row = $this->getRow($position);
+
+            if ($row === $lastRow) {
+                return in_array('ROLE_USER', $challengerRoles);
+            }
+
+            return false;
+        }
+
+
+        return in_array('ROLE_USER', $challengerRoles);
     }
 }

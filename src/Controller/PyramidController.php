@@ -11,6 +11,7 @@ use App\Services\Pyramid\PyramidService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class PyramidController extends AbstractController
@@ -19,13 +20,16 @@ class PyramidController extends AbstractController
      * @Route("/pyramid", name="pyramid")
      * @param PyramidService    $pyramidService
      * @param RankingRepository $rankingRepository
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param MatchRepository   $matchRepository
+     * @return Response
      */
-    public function index(PyramidService $pyramidService, RankingRepository $rankingRepository, MatchRepository $matchRepository)
+    public function index(Request $request, PyramidService $pyramidService, RankingRepository $rankingRepository, MatchRepository $matchRepository)
     {
+        $message = $request->get('message', '');
+
         /** @var User $user */
         $user = $this->getUser();
-        $opponentToChallenge = $pyramidService->getValidOpponents($user);
+        $opponentsToChallenge = $pyramidService->getValidOpponents($user);
 
         $ranking = $user->getRanking();
         if ($ranking) {
@@ -39,7 +43,7 @@ class PyramidController extends AbstractController
             $player = [
                 'id'  => $user->getId(),
                 'min' => $rankingRepository->findOneBy([], ['position' => 'DESC'])->getPosition(),
-                'max' => 1,
+                'max' => $opponentsToChallenge[0]->getRanking()->getPosition(),
             ];
         }
 
@@ -48,7 +52,6 @@ class PyramidController extends AbstractController
         $row = 1;
         $challengers = [];
         foreach ($rankings as $ranking) {
-
             $row = $this->getRow($ranking->getPosition());
 
             $challengers[] = [
@@ -66,6 +69,7 @@ class PyramidController extends AbstractController
             $pyramid[$challenger['row']][] = $challenger;
         }
 
+        // Fill the last places in the last row for pyramid design
         $gap = $row - count($pyramid[$row]);
         if ($gap > 0) {
             for ($i = 0; $i < $gap; $i++) {
@@ -79,10 +83,12 @@ class PyramidController extends AbstractController
         $lastMatches = $matchRepository->findBy(['state' => Match::STATE_DONE], ['updated' => 'DESC'], 10);
 
         return $this->render('pyramid/index.html.twig', [
-            'pyramid'             => $pyramid,
-            'player'              => $player,
-            'opponentToChallenge' => $opponentToChallenge,
-            'lastMatches'         => $lastMatches,
+            'pyramid'              => $pyramid,
+            'player'               => $player,
+            'opponentsToChallenge' => $opponentsToChallenge,
+            'lastMatches'          => $lastMatches,
+            'user'                 => $user,
+            'message'              => $message,
         ]);
     }
 
@@ -92,19 +98,34 @@ class PyramidController extends AbstractController
      * @param Request        $request
      * @param PyramidService $pyramidService
      * @param UserRepository $userRepository
-     * @return RedirectResponse
+     * @return Response
      */
     public function reportDirectResult(Request $request, PyramidService $pyramidService, UserRepository $userRepository)
     {
         $opponentId = $request->get('opponent_id');
         $opponent = $userRepository->findOneBy(['id' => $opponentId]);
 
+        $score1 = (int)$request->get('score1');
+        $score2 = (int)$request->get('score2');
+
+        if ($score1 === $score2) {
+            return $this->render('pyramid/report.html.twig', ['type' => 1]);
+        }
+
+        if ($score1 < 2 && $score2 < 2) {
+            return $this->render('pyramid/report.html.twig', [
+                'type'   => 2,
+                'score1' => $score1,
+                'score2' => $score2,
+            ]);
+        }
+
         /** @var User $user */
         $user = $this->getUser();
 
-        $pyramidService->reportMatch($user, $opponent, 0);
+        $pyramidService->reportMatch($user, $opponent, $score1, $score2);
 
-        return $this->redirectToRoute('pyramid');
+        return $this->redirectToRoute('pyramid', ['message' => 'success']);
     }
 
     /**

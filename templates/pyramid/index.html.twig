@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Vereins Pyramide{% endblock %}
+{% block title %}Forderungspyramide{% endblock %}
 
 {% block body %}
 
@@ -9,9 +9,19 @@
         <div class="container main-container">
             <div class="row">
                 <div class="col-12 mt-4">
-                    <h1>Vereins Pyramide</h1>
+                    <h1>Forderungspyramide</h1>
                 </div>
             </div>
+
+            {% if message %}
+                <div class="row">
+                    <div class="col-12 mt-4">
+                        <div class="featured-green">
+                            <h5>Das Ergebnis wurde erfolgreich eingetragen.</h5>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
 
             <div class="row">
                 <div class="col-12">
@@ -48,36 +58,67 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-12 mt-4">
-                    <div class="featured-green">
-                        <h4>Ergebnis eintragen</h4>
-                        <form method="post" action="{{ path('pyramid_report_direct_result') }}">
-                            <div class="form-group">
-                                <label for="opponent-id">
-                                    Ich habe <b>verloren</b> gegen:
-                                </label>
-                                <select name="opponent_id" id="opponent-id" class="form-control">
-                                    {% for challenger in opponentToChallenge %}
-                                        <option value="{{ challenger.id }}">
-                                            {% if challenger.ranking %}
-                                                [ #{{ challenger.ranking.position }} ]
-                                            {% else %}
-                                                [ UNRANKED ]
-                                            {% endif %}
+            {% if opponentsToChallenge %}
+                <div class="row">
+                    <div class="col-12 mt-4">
+                        <div class="featured-green">
+                            <h4>Ergebnis eintragen</h4>
+                            <form method="post" action="{{ path('pyramid_report_direct_result') }}">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label for="opponent-id">
+                                                Ich forderte:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <select name="opponent_id" id="opponent-id" class="form-control">
+                                                {% for challenger in opponentsToChallenge %}
+                                                    <option value="{{ challenger.id }}">
+                                                        {% if challenger.ranking %}
+                                                            [ #{{ challenger.ranking.position }} ]
+                                                        {% else %}
+                                                            [ UNRANKED ]
+                                                        {% endif %}
 
-                                            {{ challenger.firstname }} {{ challenger.lastname }}
-                                        </option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" class="btn btn-danger" value="Niederlage abschicken">
-                            </div>
-                        </form>
+                                                        {{ challenger.firstname }} {{ challenger.lastname }}
+                                                    </option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label for="opponent-id">
+                                                Und spielte:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="pyramid__score_wrapper">
+                                                <input type="number" name="score1" min="0" max="3"
+                                                       class="form-control pyramid__score" value="0">
+                                                <div class="pyramid__score_delimiter">:</div>
+                                                <input type="number" name="score2" min="0" max="3"
+                                                       class="form-control pyramid__score" value="0">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-8 offset-md-2">
+                                            <input type="submit" class="btn pyramid__submit"
+                                                   value="Ergebnis abschicken">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
 
             <div class="row">
                 <div class="col-12 mt-4">
@@ -86,14 +127,12 @@
                         {% for match in lastMatches %}
                             <li class="list-group-item">
                                 <div class="matchresult">
-                                    <div class="date">
-                                        {{ match.created | date('d.m.') }}
-                                    </div>
-                                    <div class="opponents">
-                                        <span>{{ match.user2.shortname }}</span>
-                                        <b> {% if match.result == 0 %}gewann{% else %}verlor{% endif %} gegen</b>
-                                        <span>{{ match.user1.shortname }}</span>
-                                    </div>
+                                    <div class="date">{{ match.created | date('d.m.') }}</div>
+                                    <div>{{ match.user1.shortname }}</div>
+                                    <div> {% if match.result == 1 %}gewann{% else %}verlor{% endif %} gegen</div>
+                                    <div>{{ match.user2.shortname }}</div>
+                                    <div>{{ match.score1 }} : {{ match.score2 }}</div>
+
                                 </div>
                             </li>
                         {% endfor %}

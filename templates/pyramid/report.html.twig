@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Forderungspyramide{% endblock %}
+
+{% block body %}
+
+    <div class="container main-container">
+        <div class="row">
+            <div class="col-12 mt-4">
+                {% if type == 1 %}
+                    <div class="featured-yellow">
+                        <h1 class="h3 mb-3 font-weight-normal">Unentschieden? Glückwunsch!</h1>
+                        <p>Aber dies ist nicht Vietnam. Hier gibt es Regeln, Dude.</p>
+                        <p>Bitte trag ein Ergebnis mit einem Sieger ein.</p>
+                        <p>
+                            <a class="btn btn-block btn-danger" href="{{ path('pyramid') }}">Nochmal versuchen</a>
+                        </p>
+                    </div>
+                {% endif %}
+
+                {% if type == 2 %}
+                    <div class="featured-yellow">
+                        <h1 class="h3 mb-3 font-weight-normal">Auch wenn die Seite hübsch grün-weiss ist: Dies ist nicht Werder Bremen.</h1>
+                        <p>Ein {{ score1 }} : {{ score2 }} ist kein gültiges Ergebnis.</p>
+                        <p>Bitte trage ein <b>best of 2</b> oder <b>best of 3</b> Ergebnis ein.</p>
+                        <p>
+                            <a class="btn btn-block btn-danger" href="{{ path('pyramid') }}">Nochmal versuchen</a>
+                        </p>
+                    </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
