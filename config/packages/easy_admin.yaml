@@ -14,6 +14,7 @@ easy_admin:
       - { entity: 'Reservation', permission: 'ROLE_ADMIN' }
       - { entity: 'Table', permission: 'ROLE_ADMIN' }
       - { entity: 'Pyramid', permission: 'ROLE_ADMIN',  children: ['Ranking', 'Matches'] }
+      - { entity: 'SnookerBreak', permission: 'ROLE_ADMIN' }
   site_name: Snooker Club 147 Admin
 
   formats:
@@ -134,3 +135,7 @@ easy_admin:
     Matches:
       item_permission: 'ROLE_ADMIN'
       class: App\Entity\Match
+
+    SnookerBreak:
+      item_permission: 'ROLE_ADMIN'
+      class: App\Entity\SnookerBreak

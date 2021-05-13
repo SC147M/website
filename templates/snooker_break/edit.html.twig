@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit SnookerBreak{% endblock %}
+
+{% block body %}
+    <h1>Edit SnookerBreak</h1>
+
+    {{ include('snooker_break/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('snooker_break_index') }}">back to list</a>
+
+    {{ include('snooker_break/_delete_form.html.twig') }}
+{% endblock %}
