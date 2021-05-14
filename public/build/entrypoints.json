@@ -2,23 +2,21 @@
   "entrypoints": {
     "app": {
       "js": [
-        "http://localhost:8080/build/runtime.js",
-        "http://localhost:8080/build/vendors~_tmp_copy~app~calendar.js",
-        "http://localhost:8080/build/app.js"
+        "/build/runtime.77f6c4a9.js",
+        "/build/app.c5f5f6ed.js"
       ],
       "css": [
-        "http://localhost:8080/build/app.css"
+        "/build/app.6d14b914.css"
       ]
     },
     "calendar": {
       "js": [
-        "http://localhost:8080/build/runtime.js",
-        "http://localhost:8080/build/vendors~_tmp_copy~app~calendar.js",
-        "http://localhost:8080/build/vendors~calendar.js",
-        "http://localhost:8080/build/calendar.js"
+        "/build/runtime.77f6c4a9.js",
+        "/build/1.53e01538.js",
+        "/build/calendar.26b59637.js"
       ],
       "css": [
-        "http://localhost:8080/build/vendors~calendar.css"
+        "/build/1.26fbaebd.css"
       ]
     }
   }
