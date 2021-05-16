@@ -9,6 +9,22 @@
                 <h1>Registrieren</h1>
 
                 {{ form_start(registrationForm) }}
+
+
+                <div class="form-group">
+                    <label for="clubpw" class="required">Club Passwort</label>
+                    {% if wrongClubPw %}
+                        <span class="invalid-feedback d-block">
+                            <span class="d-block">
+                                <span class="form-error-icon badge badge-danger text-uppercase">Fehler</span>
+                                <span class="form-error-message">Falsches Clubpasswort</span>
+                            </span>
+                        </span>
+                    {% endif %}
+
+                    <input class="form-control" type="password" name="clubpw" id="clubpw"/>
+                </div>
+
                 {{ form_row(registrationForm.firstName) }}
                 {{ form_row(registrationForm.lastName) }}
                 {{ form_row(registrationForm.email) }}

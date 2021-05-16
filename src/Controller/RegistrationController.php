@@ -33,6 +33,16 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $clubPw = $request->get('clubpw');
+
+            if (strtolower($clubPw) !== 'whatashot') {
+                return $this->render('registration/register.html.twig', [
+                    'registrationForm' => $form->createView(),
+                    'wrongClubPw'      => true,
+                ]);
+            }
+
             // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(
@@ -41,7 +51,7 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            $user->setRoles(['ROLE_USER']);
+            $user->setRoles(['ROLE_PENDING']);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
@@ -53,6 +63,7 @@ class RegistrationController extends AbstractController
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
+            'wrongClubPw'      => false,
         ]);
     }
 

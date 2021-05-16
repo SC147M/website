@@ -8,6 +8,12 @@ class AdminController extends EasyAdminController
 {
     protected function persistEntity($entity)
     {
+        if (method_exists($entity, 'setPassword')) {
+            if (empty($entity->getPassword())) {
+                $entity->setPassword('abc');
+            }
+        }
+
         if (method_exists($entity, 'setUser')) {
             if (empty($entity->getUser())) {
                 $user = $this->getUser();
