@@ -46,16 +46,20 @@
                         <p><a href="{{ path('news_detail', {id: news.id, slug: news.slug}) }}">Weiterlesen</a></p>
                     </div>
                 </div>
+
                 <div class="col-lg-6 mt-4">
                     <h2>Tischreservierungen</h2>
                     <div class="table-responsive">
                         <table class="table">
                             <tbody>
-                            {% for reservation in reservations %}
-                                {% if reservation.start < "now"|date_modify("+21 days") %}
+                            {% for days in reservations %}
                                 <tr>
-                                    <th scope="row" title="{{ reservation.comment }}">{{ reservation.start | date('d.m.') }} {{ reservation.start | date('H:i') }}
-                                        - {{ reservation.end | date('H:i') }}</th>
+                                    <td colspan="3" class="font-weight-bold">{{ days.date }}</td>
+                                </tr>
+                                    {% for reservation in days.reservations %}
+                                        <tr>
+                                    <td>{{ reservation.start | date('H:i') }}
+                                        - {{ reservation.end | date('H:i') }}</td>
                                     <td>
                                         {% for table in reservation.tables %}
                                             {{ table.name }}{% if loop.last == false %},{% endif %}
@@ -69,8 +73,9 @@
                                             {{ user.firstname }}{% if loop.last == false %},{% endif %}
                                         {% endfor %}
                                     </td>
+                                        </tr>
+                                    {% endfor %}
                                 </tr>
-                                {% endif %}
                             {% else %}
                                 <tr>
                                     <th>Derzeit keine Reservierungen vorhanden.</th>

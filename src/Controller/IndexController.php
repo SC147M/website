@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Reservation;
 use App\Repository\NewsRepository;
 use App\Repository\ReservationRepository;
+use App\Services\ReservationFormatter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use DateTime;
@@ -16,15 +17,16 @@ class IndexController extends AbstractController
      * @Route("/", name="index")
      * @param ReservationRepository $reservationRepository
      * @param NewsRepository        $newsRepository
+     * @param ReservationFormatter  $reservationFormatter
      * @return \Symfony\Component\HttpFoundation\Response
-     * @throws \Exception
      */
-    public function index(ReservationRepository $reservationRepository, NewsRepository $newsRepository)
+    public function index(ReservationRepository $reservationRepository, NewsRepository $newsRepository, ReservationFormatter $reservationFormatter)
     {
         $today = (new DateTime())->setTime(0, 0, 0, 0);
 
         $tourneys = $reservationRepository->findByTypes(Reservation::TYPE_TOURNEY, $today);
         $reservations = $reservationRepository->findByTypes([Reservation::TYPE_TABLE, Reservation::TYPE_OTHERS], $today);
+        $reservations = $reservationFormatter->formatByDays($reservations);
 
         $news = $newsRepository->findOneBy([], ['createdAt' => 'desc']);
 
