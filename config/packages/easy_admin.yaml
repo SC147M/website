@@ -119,6 +119,10 @@ easy_admin:
     Table:
       item_permission: 'ROLE_ADMIN'
       class: App\Entity\Table
+      form:
+        fields:
+        - name
+        - locked
 
     Pyramid:
       item_permission: 'ROLE_ADMIN'

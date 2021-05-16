@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Reservation;
 use App\Entity\Table;
 use App\Entity\User;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -45,6 +46,10 @@ class ReservationType extends AbstractType
                 'tables',
                 EntityType::class,
                 [
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('r')
+                            ->where('r.locked = 0');
+                    },
                     'multiple'    => true,
                     'class'       => Table::class,
                     'required'    => true,
