@@ -29,9 +29,9 @@ jobs:
       uses: fifsky/ssh-action@master
       with:
         command: |
-          cd /web/m-snooker/
+          cd m-snooker.de
           ./deploy.sh
-        host: ${{ secrets.SSHHOST}}
-        user: ${{ secrets.SSHUSER}}
-        pass: "${{ secrets.SSHPASSWORD}}"
+        host: ${{ secrets.SSHHOST_STAGING}}
+        user: ${{ secrets.SSHUSER_STAGING}}
+        pass: "${{ secrets.SSHPASSWORD_STAGING}}"
         args: "-tt"
