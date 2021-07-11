@@ -1,11 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New SnookerBreak{% endblock %}
+{% block title %}Neues Break eintragen{% endblock %}
 
 {% block body %}
-    <h1>Create new SnookerBreak</h1>
+    <div class="container main-container">
+        <div class="row">
+            <div class="col-12 mt-4 mb-3">
+                <h1>Neues Break eintragen</h1>
 
-    {{ include('snooker_break/_form.html.twig') }}
+                {{ include('snooker_break/_form.html.twig') }}
 
-    <a href="{{ path('snooker_break_index') }}">back to list</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <a href="{{ path('breaks') }}">Zurück</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}

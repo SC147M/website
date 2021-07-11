@@ -1,4 +1,23 @@
-{{ form_start(form) }}
+{{ form_start(form, {'attr': {'id': 'break_form'}}) }}
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <button class="btn btn-success">{{ button_label|default('Speichern') }}</button>
+
+    <script>
+/*
+        $('#break_form').submit(function (e) {
+
+            const date = $('#snooker_break_created_at').datetimepicker('viewDate');
+
+            $('#snooker_break_created_at').val(moment(date).format('YYYY-MM-DDTHH:mm:ss'));
+        });
+
+
+        $('#snooker_break_created_at').datetimepicker({
+            inline: true,
+            locale: 'de',
+            format: 'L',
+            defaultDate: moment()
+        })
+        */
+    </script>
 {{ form_end(form) }}

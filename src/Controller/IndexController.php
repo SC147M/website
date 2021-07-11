@@ -89,7 +89,7 @@ class IndexController extends AbstractController
     }
     
     /**
-     * @Route("/breaks", name="breaks")
+     * @Route("/breaks_old", name="breaks_old")
      */
     public function breaks()
     {

@@ -11,12 +11,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/break")
+ * @Route("/breaks")
  */
 class SnookerBreakController extends AbstractController
 {
     /**
-     * @Route("/", name="snooker_break_index", methods={"GET"})
+     * @Route("/", name="breaks", methods={"GET"})
      * @param SnookerBreakRepository $snookerBreakRepository
      * @return Response
      */
@@ -44,7 +44,7 @@ class SnookerBreakController extends AbstractController
             $entityManager->persist($snookerBreak);
             $entityManager->flush();
 
-            return $this->redirectToRoute('snooker_break_index');
+            return $this->redirectToRoute('breaks');
         }
 
         return $this->render('snooker_break/new.html.twig', [
@@ -68,13 +68,14 @@ class SnookerBreakController extends AbstractController
      */
     public function edit(Request $request, SnookerBreak $snookerBreak): Response
     {
+        die("soon");
         $form = $this->createForm(SnookerBreakType::class, $snookerBreak);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('snooker_break_index');
+            return $this->redirectToRoute('breaks');
         }
 
         return $this->render('snooker_break/edit.html.twig', [
@@ -88,12 +89,14 @@ class SnookerBreakController extends AbstractController
      */
     public function delete(Request $request, SnookerBreak $snookerBreak): Response
     {
+        die("soon");
+
         if ($this->isCsrfTokenValid('delete'.$snookerBreak->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($snookerBreak);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('snooker_break_index');
+        return $this->redirectToRoute('breaks');
     }
 }

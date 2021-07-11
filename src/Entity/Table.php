@@ -38,15 +38,9 @@ class Table
      */
     private $reservations;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\SnookerBreak", mappedBy="snookerTable", orphanRemoval=true)
-     */
-    private $snookerBreaks;
-
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
-        $this->snookerBreaks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -109,36 +103,5 @@ class Table
     public function __toString()
     {
         return $this->getName();
-    }
-
-    /**
-     * @return Collection|SnookerBreak[]
-     */
-    public function getSnookerBreaks(): Collection
-    {
-        return $this->snookerBreaks;
-    }
-
-    public function addSnookerBreak(SnookerBreak $snookerBreak): self
-    {
-        if (!$this->snookerBreaks->contains($snookerBreak)) {
-            $this->snookerBreaks[] = $snookerBreak;
-            $snookerBreak->setSnookerTable($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSnookerBreak(SnookerBreak $snookerBreak): self
-    {
-        if ($this->snookerBreaks->contains($snookerBreak)) {
-            $this->snookerBreaks->removeElement($snookerBreak);
-            // set the owning side to null (unless already changed)
-            if ($snookerBreak->getSnookerTable() === $this) {
-                $snookerBreak->setSnookerTable(null);
-            }
-        }
-
-        return $this;
     }
 }
