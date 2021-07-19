@@ -95,7 +95,7 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $message = (new \Swift_Message('m-snooker.de - Passwort vergessen'))
+            $message = (new \Swift_Message('sc147.de - Passwort vergessen'))
                 ->setFrom('no-reply@sc147.de')
                 ->setTo($email)
                 ->setBody(
