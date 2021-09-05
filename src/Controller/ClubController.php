@@ -41,15 +41,6 @@ class ClubController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/club/hygiene", name="hygiene")
-     */
-    public function hygiene()
-    {
-
-        return $this->render('club/hygiene.html.twig');
-    }
-
     protected function loadProviderListings($data): void
     {
         if ($this->providerFiles !== null) {
