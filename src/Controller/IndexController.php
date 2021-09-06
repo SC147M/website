@@ -83,7 +83,7 @@ class IndexController extends AbstractController
     /**
      * @Route("/training", name="training")
      */
-    public function teams()
+    public function training()
     {
         return $this->render('index/training.html.twig');
     }
