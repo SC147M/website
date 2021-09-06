@@ -61,7 +61,7 @@ class IndexController extends AbstractController
      */
     public function service()
     {
-        return $this->render('index/service.html.twig');
+        return $this->render('index/faq.html.twig');
     }
 
     /**
