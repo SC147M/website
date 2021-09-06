@@ -45,7 +45,7 @@ class IndexController extends AbstractController
      */
     public function membership()
     {
-        return $this->render('index/membership.html.twig');
+        return $this->render('index/costs.html.twig');
     }
 
     /**
@@ -78,6 +78,14 @@ class IndexController extends AbstractController
     public function dsgvo()
     {
         return $this->render('index/dsgvo.html.twig');
+    }
+
+    /**
+     * @Route("/training", name="training")
+     */
+    public function teams()
+    {
+        return $this->render('index/training.html.twig');
     }
 
     /**
