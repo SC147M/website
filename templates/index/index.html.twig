@@ -25,7 +25,8 @@
                         <h4>{{ news.title }}</h4>
                         <p class="small">{{ news.createdAt | date('d.m.Y') }} von {{ news.user.firstName }}</p>
                         {% if news.media %}
-                        <a href="{{ path('news_detail', {id: news.id, slug: news.slug}) }}"><img class="img-fluid float-left mr-2"
+                        <a href="{{ path('news_detail', {id: news.id, slug: news.slug}) }}">
+                            <img class="img-fluid mb-2" style="width: 100%"
                                  src="{{ vich_uploader_asset(news.media, 'imageFile') | imagine_filter('news_image') }}"
                                                                                                  alt="{{ news.title }}"></a>
                         {% endif %}
