@@ -33,6 +33,7 @@ class Reservation
     const TYPE_LEAGUE_2 = 3;
     const TYPE_TOURNEY = 4;
     const TYPE_OTHERS = 5;
+    const TYPE_LEAGUE_3 = 6;
 
     use TimestampAble;
 

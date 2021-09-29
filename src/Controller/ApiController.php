@@ -53,6 +53,9 @@ class ApiController extends AbstractController
                 case Reservation::TYPE_LEAGUE_2:
                     $title = 'Ligaspiel 2te Mannschaft';
                     break;
+                case Reservation::TYPE_LEAGUE_3:
+                    $title = 'Ligaspiel 3te Mannschaft';
+                    break;
                 case Reservation::TYPE_TOURNEY:
                     $title = 'Turnier';
                     break;
