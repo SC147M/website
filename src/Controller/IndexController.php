@@ -23,7 +23,6 @@ class IndexController extends AbstractController
     public function index(ReservationRepository $reservationRepository, NewsRepository $newsRepository, ReservationFormatter $reservationFormatter)
     {
         $today = (new DateTime())->setTime(0, 0, 0, 0);
-        $endTime = $today->add(new DateInterval('P14D'));
 
         $tourneys = $reservationRepository->findByTypes(Reservation::TYPE_TOURNEY, $today);
         $reservations = $reservationRepository->findByTypes([Reservation::TYPE_TABLE, Reservation::TYPE_OTHERS], $today);
