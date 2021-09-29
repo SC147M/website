@@ -115,7 +115,7 @@ easy_admin:
               mapped: true
               expanded: false
               multiple: false
-              choices: { 'Tischreservierung': '1', 'Ligaspiel 1. Mannschaft': '2', 'Ligaspiel 2. Mannschaft': '3', 'Turnier': '4', 'Sonstiges': '5' }
+              choices: { 'Tischreservierung': '1', 'Ligaspiel 1. Mannschaft': '2', 'Ligaspiel 2. Mannschaft': '3', 'Ligaspiel 3. Mannschaft': '6', 'Turnier': '4', 'Sonstiges': '5' }
     Table:
       item_permission: 'ROLE_ADMIN'
       class: App\Entity\Table
