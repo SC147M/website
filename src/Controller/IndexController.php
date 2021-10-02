@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Reservation;
 use App\Repository\NewsRepository;
 use App\Repository\ReservationRepository;
+use App\Repository\TextContentRepository;
 use App\Services\ReservationFormatter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,9 +19,10 @@ class IndexController extends AbstractController
      * @param ReservationRepository $reservationRepository
      * @param NewsRepository        $newsRepository
      * @param ReservationFormatter  $reservationFormatter
+     * @param TextContentRepository $textContentRepository
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index(ReservationRepository $reservationRepository, NewsRepository $newsRepository, ReservationFormatter $reservationFormatter)
+    public function index(ReservationRepository $reservationRepository, NewsRepository $newsRepository, ReservationFormatter $reservationFormatter, TextContentRepository $textContentRepository)
     {
         $today = (new DateTime())->setTime(0, 0, 0, 0);
 
@@ -30,12 +32,17 @@ class IndexController extends AbstractController
 
         $news = $newsRepository->findOneBy([], ['createdAt' => 'desc']);
 
+
+        $homeText = $textContentRepository->find(1);
+
+
         return $this->render(
             'index/index.html.twig',
             [
                 'news'         => $news,
                 'reservations' => $reservations,
                 'tourneys'     => $tourneys,
+                'homeText'     => $homeText,
             ]
         );
     }
@@ -95,7 +102,7 @@ class IndexController extends AbstractController
     {
         return $this->render('index/teams.html.twig');
     }
-    
+
     /**
      * @Route("/breaks_old", name="breaks_old")
      */
@@ -103,7 +110,7 @@ class IndexController extends AbstractController
     {
         return $this->render('index/breaks.html.twig');
     }
-     
+
     /**
      * @Route("/rules", name="rules")
      */

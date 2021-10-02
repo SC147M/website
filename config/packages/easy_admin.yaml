@@ -9,7 +9,7 @@ easy_admin:
       - { label: 'Homepage', url: '/', rel: 'index' }
       - { label: 'Administration' }
       - { entity: 'News', permission: 'ROLE_CONTENT', children: ['News', 'Media', 'Categories', 'Tags'] }
-
+      - { entity: 'Texte', permission: 'ROLE_ADMIN' }
       - { entity: 'User', permission: 'ROLE_ADMIN' }
       - { entity: 'Reservation', permission: 'ROLE_ADMIN' }
       - { entity: 'Table', permission: 'ROLE_ADMIN' }
@@ -56,6 +56,17 @@ easy_admin:
           - { property: media, type_options: { block_name: 'custom_media' } }
           - { property: 'caption', type: 'textarea' }
           - { property: 'body', type: 'fos_ckeditor' }
+    Texte:
+      item_permission: 'ROLE_ADMIN'
+      class: App\Entity\TextContent
+      list:
+        fields:
+        - id
+        - title
+      form:
+        fields:
+        - title
+        - { property: 'content', type: 'fos_ckeditor' }
     Tags:
       item_permission: 'ROLE_CONTENT'
       class: App\Entity\Tag

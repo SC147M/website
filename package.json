@@ -24,6 +24,7 @@
         "@fullcalendar/timegrid": "^4.2.0",
         "ckeditor": "^4.0.0",
         "less": "^3.9.0",
-        "moments": "^0.0.2"
+        "moments": "^0.0.2",
+        "vue-router": "^3.5.2"
     }
 }
