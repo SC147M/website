@@ -3,41 +3,23 @@
 {% block title %}Breaks{% endblock %}
 
 {% block body %}
-    <div class="container main-container ">
-
-        <div class="row">
-            <div class="col breaks">
-                <div>
-                    <h1 class="breaks__headline_1">
-                        <span class="breaks__headline_part1">Br</span>eaking
-                    </h1>
-
-                    <h1 class="breaks__headline_2">
-                        <span class="breaks__headline_part2">W</span>ell
-                    </h1>
-                </div>
-            </div>
-        </div>
-
-        {% if is_granted('ROLE_USER') %}
+    <div class="club">
+        <div class="container main-container">
             <div class="row">
-                <div class="col mt-4">
-                    <a class="btn btn-success" href="{{ path('snooker_break_new') }}">Neues Break eintragen</a>
+                <h2>Breaks</h2>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mt-4">
+                    <h3>Aktuelle 25+ Breaks {% if is_granted('ROLE_USER') %}<a class="btn btn-success" href="{{ path('snooker_break_new') }}">Neues Break eintragen</a>{% endif %}</h3>
+                    {{ include('snooker_break/_breaktable.html.twig', {'breaks': snooker_breaks}) }}
+                </div>
+
+                <div class="col-md-6 mt-4">
+                    <h3>Top 20 Breaks im SC147</h3>
+                    {{ include('snooker_break/_breaktable.html.twig', {'breaks': highest_breaks}) }}
                 </div>
             </div>
-        {% endif %}
-
-        <div class="row">
-            <div class="col-md-6 mt-4">
-                <h3>Die letzten 20 Breaks mit mind. 25 Punkten</h3>
-                {{ include('snooker_break/_breaktable.html.twig', {'breaks': snooker_breaks}) }}
-            </div>
-
-            <div class="col-md-6 mt-4">
-                <h3>Top 20 All Time Highest Breaks</h3>
-                {{ include('snooker_break/_breaktable.html.twig', {'breaks': highest_breaks}) }}
-            </div>
         </div>
-
     </div>
 {% endblock %}
