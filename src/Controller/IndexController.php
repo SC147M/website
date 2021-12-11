@@ -88,6 +88,14 @@ class IndexController extends AbstractController
     }
 
     /**
+     * @Route("/games", name="games")
+     */
+    public function games()
+    {
+        return $this->render('index/games.html.twig');
+    }
+
+    /**
      * @Route("/training", name="training")
      */
     public function training()
