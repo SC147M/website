@@ -12,7 +12,7 @@
                 </div>
 
                 <div class="col-md-6 mt-4">
-                    <h1>Aktuelle 25+ Breaks{% if is_granted('ROLE_USER') %}&nbsp;&nbsp;<a class="btn btn-success" href="{{ path('snooker_break_new') }}">Neues Break</a>{% endif %}</h1>
+                    <h1>Aktuelle 25+ Breaks{% if is_granted('ROLE_USER') %}&nbsp;&nbsp;<a class="btn btn-success pull-right" href="{{ path('snooker_break_new') }}">Neues Break</a>{% endif %}</h1>
                     {{ include('snooker_break/_breaktable.html.twig', {'breaks': snooker_breaks}) }}
                 </div>
             </div>
