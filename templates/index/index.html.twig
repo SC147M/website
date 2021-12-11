@@ -39,7 +39,7 @@
                     <h2>
                         Tischreservierungen
                         {% if is_granted('ROLE_USER') %}
-                            <a class="pull-right featured-green" href="{{ path('reservation_new') }}">Tisch reservieren</a>
+                            <a class="btn btn-success pull-right" href="{{ path('reservation_new') }}">Tisch reservieren</a>
                         {% endif %}
                     </h2>
                     <div class="table-responsive">
