@@ -6,12 +6,14 @@
     <div class="club">
         <div class="container main-container">
             <div class="row">
-                <h2>Breaks</h2>
+                <div class="col-12 mt-4 mb-3">
+                    <h1>Breaks</h1>
+                </div>
             </div>
 
             <div class="row">
                 <div class="col-md-6 mt-4">
-                    <h3>Aktuelle 25+ Breaks {% if is_granted('ROLE_USER') %}<a class="btn btn-success" href="{{ path('snooker_break_new') }}">Neues Break eintragen</a>{% endif %}</h3>
+                    <h3>Aktuelle 25+ Breaks{% if is_granted('ROLE_USER') %}&nbsp;&nbsp;<a class="btn btn-success" href="{{ path('snooker_break_new') }}">Neues Break</a>{% endif %}</h3>
                     {{ include('snooker_break/_breaktable.html.twig', {'breaks': snooker_breaks}) }}
                 </div>
 
