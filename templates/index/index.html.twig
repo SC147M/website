@@ -36,7 +36,12 @@
                 </div>
 
                 <div class="col-lg-6 mt-4">
-                    <h2>Tischreservierungen</h2>
+                    <h2>
+                        Tischreservierungen
+                        {% if is_granted('ROLE_USER') %}
+                            <a class="pull-right featured-green" href="{{ path('reservation_new') }}">Tisch reservieren</a>
+                        {% endif %}
+                    </h2>
                     <div class="table-responsive">
                         <table class="table">
                             <tbody>
@@ -72,12 +77,6 @@
                             </tbody>
                         </table>
                     </div>
-                    {% if is_granted('ROLE_USER') %}
-                        <div class="clearfix">
-                            <a class="pull-right featured-green" href="{{ path('reservation_new') }}">Tisch
-                                reservieren</a>
-                        </div>
-                    {% endif %}
 
                     {% if tourneys | length > 0 %}
                         <h2>Heimspiele und Turniere</h2>
