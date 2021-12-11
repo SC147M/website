@@ -10,7 +10,7 @@
     <tbody>
     {% for snooker_break in breaks %}
     <tr>
-        <td>{{ snooker_break.createdAt ? snooker_break.createdAt|date('d.m.yyyy') : '' }}</td>
+        <td>{{ snooker_break.createdAt ? snooker_break.createdAt|date('d.m.Y') : '' }}</td>
         <td class="font-weight-bold">{{ snooker_break.score }}</td>
         <td>{{ snooker_break.user.shortname }}</td>
         <td>{{ snooker_break.opponent.shortname }}</td>
