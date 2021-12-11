@@ -6,20 +6,14 @@
     <div class="club">
         <div class="container main-container">
             <div class="row">
-                <div class="col-12 mt-4 mb-3">
-                    <h1>Breaks</h1>
-                </div>
-            </div>
-
-            <div class="row">
                 <div class="col-md-6 mt-4">
-                    <h3>Aktuelle 25+ Breaks{% if is_granted('ROLE_USER') %}&nbsp;&nbsp;<a class="btn btn-success" href="{{ path('snooker_break_new') }}">Neues Break</a>{% endif %}</h3>
-                    {{ include('snooker_break/_breaktable.html.twig', {'breaks': snooker_breaks}) }}
-                </div>
-
-                <div class="col-md-6 mt-4">
-                    <h3>Top 20 Breaks im SC147</h3>
+                    <h1>Breaks - Top 20</h1>
                     {{ include('snooker_break/_breaktable.html.twig', {'breaks': highest_breaks}) }}
+                </div>
+
+                <div class="col-md-6 mt-4">
+                    <h1>Aktuelle 25+ Breaks{% if is_granted('ROLE_USER') %}&nbsp;&nbsp;<a class="btn btn-success" href="{{ path('snooker_break_new') }}">Neues Break</a>{% endif %}</h1>
+                    {{ include('snooker_break/_breaktable.html.twig', {'breaks': snooker_breaks}) }}
                 </div>
             </div>
         </div>
