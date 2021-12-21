@@ -38,7 +38,6 @@
                         <li class="list-group-item">
                             <p>
                                 Snookerclub 147 München e.V.
-                                <br/>Heimstetten
                                 <br/>Klausnerring 15
                                 <br/>85551 Kirchheim
                             </p>
@@ -48,7 +47,7 @@
 
                 <div class="col-lg-6 mt-4">
                     <h2>
-                        Tischreservierungen
+                        Tischbelegung
                         {% if is_granted('ROLE_USER') %}
                             <a class="btn btn-success pull-right" href="{{ path('reservation_new') }}">Tisch reservieren</a>
                         {% endif %}
