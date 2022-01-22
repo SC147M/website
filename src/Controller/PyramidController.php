@@ -8,6 +8,7 @@ use App\Repository\MatchRepository;
 use App\Repository\RankingRepository;
 use App\Repository\UserRepository;
 use App\Services\Pyramid\PyramidService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -126,6 +127,36 @@ class PyramidController extends AbstractController
         $pyramidService->reportMatch($user, $opponent, $score1, $score2);
 
         return $this->redirectToRoute('pyramid', ['message' => 'success']);
+    }
+
+    /**
+     * @Route("/pyramid/recalc", name="pyramid_recalc")
+     * @param Request                $request
+     * @param RankingRepository      $repository
+     * @param EntityManagerInterface $manager
+     * @return RedirectResponse
+     */
+    public function recalc(Request $request, RankingRepository $repository, EntityManagerInterface $manager)
+    {
+        $ranking = $repository->findBy([], ['position' => 'asc']);
+        $position = 1;
+
+        foreach ($ranking as $rank) {
+            $rank->setPosition($position);
+            $position++;
+
+            $manager->persist($rank);
+        }
+
+        $manager->flush();
+
+        return $this->redirectToRoute('easyadmin', [
+            'entity'       => 'Ranking',
+            'action'       => 'list',
+            'menuIndex'    => '8',
+            'submenuIndex' => '0',
+        ]);
+
     }
 
     /**
