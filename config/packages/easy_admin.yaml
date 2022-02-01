@@ -67,7 +67,7 @@ easy_admin:
       form:
         fields:
         - title
-        - { property: 'content', type: 'fos_ckeditor' }
+        - { property: 'content', type: 'fos_ckeditor', type_options: { 'config': { 'autoParagraph': false, 'enterMode': 'CKEDITOR.ENTER_BR' } } }
     Tags:
       item_permission: 'ROLE_CONTENT'
       class: App\Entity\Tag
