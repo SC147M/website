@@ -120,7 +120,7 @@ easy_admin:
           - end
           - tables
           - participants
-          - { property: 'comment', type: 'fos_ckeditor' }
+          - { property: 'comment', type: 'fos_ckeditor', type_options: { 'config': { 'autoParagraph': false, 'enterMode': 'CKEDITOR.ENTER_BR' } } }
           - property: 'type'
             type: 'choice'
             type_options:
