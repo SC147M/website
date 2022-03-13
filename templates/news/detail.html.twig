@@ -27,6 +27,7 @@
                                 {{ news.user.firstname }}</small>
                         </p>
                     </article>
+                    <h4>Kommentare</h4>
                     {% if is_granted('ROLE_USER') %}
                         {{ form_start(form) }}
                         {{ form_row(form.message) }}
