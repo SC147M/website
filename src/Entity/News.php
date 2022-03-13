@@ -81,6 +81,8 @@ class News
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="news", orphanRemoval=true)
+     * @ORM\OrderBy({"createdAt" = "DESC"})
+     *
      */
     private $comments;
 
