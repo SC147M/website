@@ -27,24 +27,24 @@
                                 {{ news.user.firstname }}</small>
                         </p>
                     </article>
-                    <h4>Kommentare</h4>
-                    {% if is_granted('ROLE_USER') %}
-                        {{ form_start(form) }}
-                        {{ form_row(form.message) }}
-                        <button class="btn btn-success">Kommentar verfassen</button>
-                        {{ form_end(form) }}
-                    {% endif %}
+                    {#<h4>Kommentare</h4>#}
+                    {#{% if is_granted('ROLE_USER') %}#}
+                        {#{{ form_start(form) }}#}
+                        {#{{ form_row(form.message) }}#}
+                        {#<button class="btn btn-success">Kommentar verfassen</button>#}
+                        {#{{ form_end(form) }}#}
+                    {#{% endif %}#}
 
-                    <ul class="list-group list-group-flush mt-4">
-                        {% for comment in news.comments %}
-                            <li class="list-group-item news-list-item">
-                                <h5>{{ comment.user.firstname }}</h5>
-                                <div>{{ comment.createdAt | date("d.m.Y H:i") }}</div>
-                                <p>{{ comment.message | nl2br }}</p>
+                    {#<ul class="list-group list-group-flush mt-4">#}
+                        {#{% for comment in news.comments %}#}
+                            {#<li class="list-group-item news-list-item">#}
+                                {#<h5>{{ comment.user.firstname }}</h5>#}
+                                {#<div>{{ comment.createdAt | date("d.m.Y H:i") }}</div>#}
+                                {#<p>{{ comment.message | nl2br }}</p>#}
 
-                            </li>
-                        {% endfor %}
-                    </ul>
+                            {#</li>#}
+                        {#{% endfor %}#}
+                    {#</ul>#}
 
 
                 </div>
