@@ -48,6 +48,13 @@ class IndexController extends AbstractController
     }
 
     /**
+     * @Route("/timer", name="timer")
+     */
+    public function shootoutTimer() {
+        return $this->render('index/shootouttimer.html.twig');
+    }
+
+    /**
      * @Route("/mitgliedschaft", name="membership")
      */
     public function membership()
