@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\SnookerBreak;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * @method SnookerBreak|null find($id, $lockMode = null, $lockVersion = null)
@@ -28,6 +29,25 @@ class SnookerBreakRepository extends ServiceEntityRepository
             ->andWhere('sb.score >= 25')
             ->orderBy('sb.createdAt', 'DESC')
             ->setMaxResults(20)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param int $months
+     * @return SnookerBreak[] Returns an array of SnookerBreak objects
+     */
+    public function findHighestBreaks($months = 3)
+    {
+        $date = new \DateTime('-' . $months . ' months');
+
+        return $this->createQueryBuilder('sb')
+            ->andWhere('sb.createdAt >= :date')
+
+            ->setMaxResults(20)
+            ->orderBy('sb.score', 'DESC')
+            ->setParameter('date', $date)
+
             ->getQuery()
             ->getResult();
     }

@@ -5,14 +5,21 @@
 {% block body %}
     <div class="club">
         <div class="container main-container">
+            {% if is_granted('ROLE_USER') %}
+            <div class="row">
+                <div class="col">
+                    <a class="btn btn-success mt-4" href="{{ path('snooker_break_new') }}">Neues Break eintragen</a>
+                </div>
+            </div>
+            {% endif %}
             <div class="row">
                 <div class="col-md-6 mt-4">
-                    <h1>Aktuelle 25+ Breaks{% if is_granted('ROLE_USER') %}&nbsp;&nbsp;<a class="btn btn-success pull-right" href="{{ path('snooker_break_new') }}">Neues Break</a>{% endif %}</h1>
+                    <h1>Aktuelle 25+ Breaks</h1>
                     {{ include('snooker_break/_breaktable.html.twig', {'breaks': snooker_breaks}) }}
                 </div>
 
                 <div class="col-md-6 mt-4">
-                    <h1>Breaks - Top 20</h1>
+                    <h1>Top 20 der letzten 3 Monate</h1>
                     {{ include('snooker_break/_breaktable.html.twig', {'breaks': highest_breaks}) }}
                 </div>
             </div>
