@@ -76,7 +76,7 @@
                                         </td>
                                         <td>
                                             {% for user in reservation.participants %}
-                                                {{ user.firstname }}{% if loop.last == false %},{% endif %}
+                                                {{ user.shortname }}{% if loop.last == false %},{% endif %}
                                             {% endfor %}
                                         </td>
                                     </tr>
