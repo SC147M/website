@@ -90,6 +90,8 @@ class Reservation
     {
         $this->tables = new ArrayCollection();
         $this->participants = new ArrayCollection();
+        $this->start = new \DateTime();
+        $this->end = new \DateTime();
     }
 
     public function getId(): ?int
