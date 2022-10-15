@@ -46,12 +46,11 @@
                 </div>
 
                 <div class="col-lg-6 mt-4">
+                    {% if is_granted('ROLE_USER') %}
                     <h2>
                         Tischbelegung
-                        {% if is_granted('ROLE_USER') %}
                             <a class="btn btn-success pull-right" href="{{ path('reservation_new') }}">Tisch
                                 reservieren</a>
-                        {% endif %}
                     </h2>
                     <div class="table-responsive">
                         <table class="table">
@@ -90,6 +89,7 @@
                             </tbody>
                         </table>
                     </div>
+                    {% endif %}
 
                     {% if tourneys | length > 0 %}
                         <h2>Spieltage und Turniere</h2>
