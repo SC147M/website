@@ -8,7 +8,6 @@
 
 namespace App\Services;
 
-
 use App\Entity\Reservation;
 use DateInterval;
 use \DateTime;
@@ -51,11 +50,9 @@ class ReservationFormatter
 
         switch( $diffDays ) {
             case 0:
-               return 'Heute';
-                break;
+                return 'Heute';
             case 1:
                 return 'Morgen';
-                break;
             default:
                 return $date->format('d.m.Y');
         }
