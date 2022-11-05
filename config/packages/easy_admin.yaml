@@ -11,7 +11,7 @@ easy_admin:
       - { entity: 'News', permission: 'ROLE_CONTENT', children: ['News', 'Media', 'Categories', 'Tags'] }
       - { entity: 'Texte', permission: 'ROLE_ADMIN' }
       - { entity: 'User', permission: 'ROLE_ADMIN' }
-      - { entity: 'Reservation', permission: 'ROLE_ADMIN' }
+      - { entity: 'Reservation', permission: 'ROLE_CONTENT' }
       - { entity: 'Table', permission: 'ROLE_ADMIN' }
       - { entity: 'Pyramid', permission: 'ROLE_ADMIN',  children: ['Ranking', 'Matches', { label: 'Ranking neu berechnen', url: '/pyramid/recalc', rel: 'index' }] }
 
