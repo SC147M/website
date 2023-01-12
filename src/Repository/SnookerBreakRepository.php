@@ -26,7 +26,7 @@ class SnookerBreakRepository extends ServiceEntityRepository
     public function findLatestHighBreaks()
     {
         return $this->createQueryBuilder('sb')
-            ->andWhere('sb.score >= 25')
+            ->andWhere('sb.score >= 30')
             ->orderBy('sb.createdAt', 'DESC')
             ->setMaxResults(20)
             ->getQuery()
