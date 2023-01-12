@@ -19,7 +19,21 @@ class SnookerBreakRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, SnookerBreak::class);
     }
-
+    
+    /**
+     * @return SnookerBreak[] Returns an array of SnookerBreak objects
+     */
+    public function findByUser($userId)
+    {
+        return $this->createQueryBuilder('sb')
+            ->andWhere('sb.userId = :userId')
+            ->orderBy('sb.score', 'DESC')
+            ->setMaxResults(10)
+            ->setParameter('userId', $userId)
+            ->getQuery()
+            ->getResult();
+    }
+    
     /**
      * @return SnookerBreak[] Returns an array of SnookerBreak objects
      */
