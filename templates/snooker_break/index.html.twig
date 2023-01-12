@@ -20,7 +20,7 @@
 
                 {% if is_granted('ROLE_USER') %}
                 <div class="col-md-6 mt-4">
-                    <h1>Meine Breaks</h1>
+                    <h1>Meine Top Breaks</h1>
                     {{ include('snooker_break/_breaktable.html.twig', {'breaks': personal_breaks}) }}
                 </div>
                 {% endif %}
