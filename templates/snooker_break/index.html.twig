@@ -18,6 +18,13 @@
                     {{ include('snooker_break/_breaktable.html.twig', {'breaks': snooker_breaks}) }}
                 </div>
 
+                {% if is_granted('ROLE_USER') %}
+                <div class="col-md-6 mt-4">
+                    <h1>Meine Breaks</h1>
+                    {{ include('snooker_break/_breaktable.html.twig', {'breaks': personal_breaks}) }}
+                </div>
+                {% endif %}
+    
                 <div class="col-md-6 mt-4">
                     <h1>Top 20 der letzten 3 Monate</h1>
                     {{ include('snooker_break/_breaktable.html.twig', {'breaks': highest_breaks}) }}
