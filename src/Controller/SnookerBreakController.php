@@ -25,6 +25,7 @@ class SnookerBreakController extends AbstractController
         return $this->render('snooker_break/index.html.twig', [
             'snooker_breaks' => $snookerBreakRepository->findLatestHighBreaks(),
             'highest_breaks' => $snookerBreakRepository->findHighestBreaks(),
+            'personal_breaks' => $snookerBreakRepository->findByUser($this.getUser()->getId()),
         ]);
     }
 
