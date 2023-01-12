@@ -23,13 +23,13 @@ class SnookerBreakRepository extends ServiceEntityRepository
     /**
      * @return SnookerBreak[] Returns an array of SnookerBreak objects
      */
-    public function findByUser()
+    public function findByUser($userId)
     {
         return $this->createQueryBuilder('sb')
             ->andWhere('sb.userId = :userId')
             ->orderBy('sb.score', 'DESC')
             ->setMaxResults(10)
-            ->setParameter('userId',  $this->getUser()->getId())
+            ->setParameter('userId',  $userId)
             ->getQuery()
             ->getResult();
     }
