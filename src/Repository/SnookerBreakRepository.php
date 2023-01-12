@@ -28,7 +28,7 @@ class SnookerBreakRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('sb')
             ->andWhere('sb.score >= 30')
             ->setMaxResults(10)
-            ->orderBy('sb.userId', 'DESC')
+            ->orderBy('sb.user_id', 'DESC')
             ->getQuery()
             ->getResult();
     }
