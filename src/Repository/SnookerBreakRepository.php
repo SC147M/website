@@ -45,7 +45,7 @@ class SnookerBreakRepository extends ServiceEntityRepository
             ->andWhere('sb.score > 9')
             ->groupBy('sb.user')
             ->setMaxResults(30)
-            ->orderBy('score', 'DESC')
+            ->orderBy('max_score', 'DESC')
             ->getQuery()
             ->getResult();
     }
