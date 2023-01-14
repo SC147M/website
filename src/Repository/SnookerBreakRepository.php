@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\SnookerBreak;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
@@ -41,11 +42,12 @@ class SnookerBreakRepository extends ServiceEntityRepository
     public function findMaxBreaksPerUser()
     {
         return $this->createQueryBuilder('sb')
-            ->select('sb, MAX(sb.score) as score')
+            ->select('sb, MAX(sb.score) as hidden max_score')
             ->andWhere('sb.score > 9')
             ->groupBy('sb.user')
+            ->having('sb.score = max_score')
             ->setMaxResults(10)
-            ->orderBy('score', 'DESC')
+            ->orderBy('max_score', 'DESC')
             ->getQuery()
             ->getResult();
     }
