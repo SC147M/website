@@ -41,10 +41,11 @@ class SnookerBreakRepository extends ServiceEntityRepository
     public function findMaxBreaksPerUser()
     {
         return $this->createQueryBuilder('sb')
-            ->select('sb, MAX(sb.score) AS HIDDEN max_score')
+            ->select('sb, MAX(sb.score) score')
+            ->andWhere('sb.score > 9')
             ->groupBy('sb.user')
             ->setMaxResults(30)
-            ->orderBy('max_score', 'DESC')
+            ->orderBy('score', 'DESC')
             ->getQuery()
             ->getResult();
     }
