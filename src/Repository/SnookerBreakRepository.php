@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\SnookerBreak;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Symfony\Component\Validator\Constraints\DateTime;
 
@@ -45,6 +46,7 @@ class SnookerBreakRepository extends ServiceEntityRepository
         // Up to now failed to do the "per user" bit
         return $this->createQueryBuilder('sb')
             ->setMaxResults(10)
+            ->groupBy('sb.user')
             ->orderBy('sb.score', 'DESC')
             ->getQuery()
             ->getResult();
