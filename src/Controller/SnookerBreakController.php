@@ -22,9 +22,25 @@ class SnookerBreakController extends AbstractController
      */
     public function index(SnookerBreakRepository $snookerBreakRepository): Response
     {
+        $highestBreaks = $snookerBreakRepository->findMaxBreaksPerUser();
+        $users = [];
+        $result = [];
+        $c = 0;
+        foreach ($highestBreaks as $break) {
+            if (!in_array($break->getUser()->getId(), $users)) {
+                $users[] = $break->getUser()->getId();
+                $result[] = $break;
+                $c++;
+            }
+
+            if ($c > 9) {
+                break;
+            }
+        }
+
         return $this->render('snooker_break/index.html.twig', [
             'snooker_breaks' => $snookerBreakRepository->findLatestHighBreaks(),
-            'highest_breaks' => $snookerBreakRepository->findMaxBreaksPerUser(),
+            'highest_breaks' => $result,
             'personal_breaks' => $snookerBreakRepository->findByUser($this->getUser()),
         ]);
     }

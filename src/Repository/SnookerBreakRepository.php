@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\SnookerBreak;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Symfony\Component\Validator\Constraints\DateTime;
@@ -45,9 +46,6 @@ class SnookerBreakRepository extends ServiceEntityRepository
         // SELECT sb.user_id, max(sb.score) as max_score, sb.created_at FROM snooker_break sb group by sb.user_id ORDER by score DESC
         // Up to now failed to do the "per user" bit
         return $this->createQueryBuilder('sb')
-       //     ->select('sb, MAX(sb.score) AS HIDDEN max_score')
-            ->setMaxResults(10)
-      //      ->groupBy('sb.user')
             ->orderBy('sb.score', 'DESC')
             ->getQuery()
             ->getResult();
