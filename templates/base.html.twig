@@ -63,8 +63,7 @@
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                            aria-haspopup="true" aria-expanded="false">Verein</a>
                         <div class="dropdown-menu bg-green shadow">
-                            <a class="dropdown-item" href="{{ path('news') }}">Aktuelles</a>
-                            <a class="dropdown-item" href="{{ path('club') }}">Unser Club</a>
+                            <a class="dropdown-item" href="{{ path('club') }}">Club</a>
                             <a class="dropdown-item" href="{{ path('membership') }}">Preise</a>
                             <a class="dropdown-item" href="{{ path('map') }}">Anfahrt</a>
                             <a class="dropdown-item" href="{{ path('service') }}">Sonstiges</a>
@@ -78,7 +77,6 @@
                             <a class="dropdown-item" href="{{ path('breaks') }}">Breaks</a>
                             <a class="dropdown-item" href="{{ path('training') }}">Training</a>
                             <a class="dropdown-item" href="{{ path('teams') }}">Mannschaften</a>
-                            <a class="dropdown-item" href="{{ path('clubliga') }}">Club-Liga</a>
                         </div>
                     </li>
 
@@ -93,12 +91,12 @@
                                         Adminbereich</a>
                                 {% endif %}
                                 {% if is_granted('ROLE_USER') %}
+                                    <a class="dropdown-item" href="{{ path('clubliga') }}"><i
+                                                class="fa fa-list-ol" aria-hidden="true"></i>
+                                        Club-Liga</a>
                                     <a class="dropdown-item" href="{{ path('reservation_index') }}"><i
                                                 class="fa fa-calendar" aria-hidden="true"></i>
                                         Tischreservierung</a>
-                                    <a class="dropdown-item" href="{{ path('pyramid') }}"><i
-                                                class="fa fa-list-ol" aria-hidden="true"></i>
-                                        Forderungspyramide</a>
                                     <a class="dropdown-item" href="https://sc147mchn.webling.eu/webling.php" target="_blank"><i
                                                 class="fa fa-book" aria-hidden="true"></i>
                                                 Vereinssoftware</a>
