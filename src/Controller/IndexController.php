@@ -132,12 +132,4 @@ class IndexController extends AbstractController
     {
         return $this->render('index/breaks.html.twig');
     }
-
-    /**
-     * @Route("/rules", name="rules")
-     */
-    public function rules()
-    {
-        return $this->render('index/rules.html.twig');
-    }
 }
