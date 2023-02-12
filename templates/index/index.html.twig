@@ -101,10 +101,8 @@
                                         <th scope="row"><strong>{{ reservation.start | date('d.m.Y') }}</strong></th>
                                         <td>
                                             {{ reservation.comment | raw }}
-                                            <!-- <p>Beginn: {{ reservation.start | date('H:i') }} Uhr</p> -->
                                         </td>
                                     </tr>
-
                                 {% endfor %}
                                 </tbody>
                             </table>
