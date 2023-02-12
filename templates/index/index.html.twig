@@ -61,8 +61,9 @@
                                 </tr>
                                 {% for reservation in days.reservations %}
                                     <tr>
-                                        <td>{{ reservation.start | date('H:i') }}
-                                            - {{ reservation.end | date('H:i') }}</td>
+                                        <td style="white-space:nowrap">
+                                            {{ reservation.start | date('H:i') }} - {{ reservation.end | date('H:i') }}
+                                        </td>
                                         <td>
                                             {% for table in reservation.tables %}
                                                 {{ table.name }}{% if loop.last == false %},{% endif %}
