@@ -72,11 +72,10 @@
                                             {% for user in reservation.participants %}
                                                 {{ user.shortname }}{% if loop.last == false %},{% endif %}
                                             {% endfor %}
-                                            {% if reservation.participants | length > 0 %}
-                                                <br/>
-                                            {% endif %}
-                                            {% if reservation.comment %}
-                                                ({{ reservation.comment }})
+                                            {% if reservation.comment and reservation.participants | length > 0 %}
+                                                <br/>({{ reservation.comment }})
+                                            {% elseif reservation.comment %}
+                                                {{ reservation.comment }}
                                             {% endif %}
                                         </td>
                                     </tr>
