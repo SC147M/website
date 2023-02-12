@@ -67,16 +67,14 @@
                                             {% for table in reservation.tables %}
                                                 {{ table.name }}{% if loop.last == false %},{% endif %}
                                             {% endfor %}
-                                            {% if reservation.comment %}
-                                                {% if is_granted('ROLE_USER') %}
-                                                    <br/>({{ reservation.comment }})
-                                                {% endif %}
-                                            {% endif %}
                                         </td>
                                         <td>
                                             {% for user in reservation.participants %}
                                                 {{ user.shortname }}{% if loop.last == false %},{% endif %}
                                             {% endfor %}
+                                            {% if reservation.comment %}
+                                                <br/>({{ reservation.comment }})
+                                            {% endif %}
                                         </td>
                                     </tr>
                                 {% endfor %}
