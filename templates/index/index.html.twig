@@ -72,13 +72,15 @@
                                             {% for user in reservation.participants %}
                                                 {{ user.shortname }}{% if loop.last == false %},{% endif %}
                                             {% endfor %}
+                                            {% if reservation.participants | length > 0 %}
+                                                <br/>
+                                            {% endif %}
                                             {% if reservation.comment %}
-                                                <br/>({{ reservation.comment }})
+                                                ({{ reservation.comment }})
                                             {% endif %}
                                         </td>
                                     </tr>
                                 {% endfor %}
-                                </tr>
                             {% else %}
                                 <tr>
                                     <th>Derzeit keine Reservierungen vorhanden.</th>
