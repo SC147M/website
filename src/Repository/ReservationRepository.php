@@ -51,7 +51,7 @@ class ReservationRepository extends ServiceEntityRepository
         }
 
         return $this->createQueryBuilder('r')
-            ->andWhere('r.end > :start')
+            ->andWhere('r.start >= :start')
             ->andWhere('r.type IN(:types)')
             ->setParameter('start', $start)
             ->setParameter('types', $types)
