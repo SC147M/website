@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\Controller",
+    "\\src\\Repository",
+    "\\templates",
+    "\\templates\\club_liga",
+    "\\templates\\index"
+  ],
+  "SelectedNode": "\\src\\Controller\\IndexController.php",
+  "PreviewInSolutionExplorer": false
+}
