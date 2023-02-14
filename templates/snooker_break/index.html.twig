@@ -14,21 +14,22 @@
             {% endif %}
             <div class="row">
                 <div class="col-md-6 mt-4">
-                    <h1>Top Breaks</h1>
+                    <h1>Aktuelle High Breaks (30+)</h1>
+                    {{ include('snooker_break/_breaktable.html.twig', {'breaks': snooker_breaks}) }}
+                </div>
+
+                <div class="col-md-6 mt-4">
+                    <h1>Top Break Spieler</h1>
                     {{ include('snooker_break/_breaktable.html.twig', {'breaks': highest_breaks}) }}
                 </div>
 
                 {% if is_granted('ROLE_USER') %}
                 <div class="col-md-6 mt-4">
-                    <h1>Meine Top Breaks</h1>
+                    <h1>Meine höchsten Breaks</h1>
                     {{ include('snooker_break/_breaktable.html.twig', {'breaks': personal_breaks}) }}
                 </div>
                 {% endif %}
-    
-                <div class="col-md-6 mt-4">
-                    <h1>Aktuelle High Breaks (30+)</h1>
-                    {{ include('snooker_break/_breaktable.html.twig', {'breaks': snooker_breaks}) }}
-                </div>
+   
             </div>
         </div>
     </div>
