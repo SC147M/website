@@ -12,7 +12,8 @@
             </div>
         </div>
         <div class="container main-container">
-            {% if homeText|raw|trim is not empty %}
+            {% if homeText|raw|trim is empty %}
+            {% else %}
             <div class="row">
                 <div class="col-12 black">
                     {{ homeText | raw }}
