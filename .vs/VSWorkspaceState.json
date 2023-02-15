@@ -6,8 +6,9 @@
     "\\src\\Repository",
     "\\templates",
     "\\templates\\club_liga",
-    "\\templates\\index"
+    "\\templates\\index",
+    "\\templates\\snooker_break"
   ],
-  "SelectedNode": "\\src\\Controller\\IndexController.php",
+  "SelectedNode": "\\templates\\snooker_break\\index.html.twig",
   "PreviewInSolutionExplorer": false
 }
