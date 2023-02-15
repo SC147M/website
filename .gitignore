@@ -35,3 +35,6 @@ yarn-error.log
 
 debug.log
 .vs/**/*
+/.vs/sc147.de/v17/.wsuo
+/.vs/slnx.sqlite
+/.vs/VSWorkspaceState.json
