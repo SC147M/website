@@ -12,13 +12,7 @@
             </div>
         </div>
         <div class="container main-container">
-            {% if homeText|raw|trim is empty %}
-            <div class="row">
-                <div class="col-12 featured-green">
-                    &gt;&gt;{{ homeText | raw }}&lt;&lt;
-                </div>
-            </div>
-            {% else %}
+            {% if homeText and (homeText | raw) != ' ' %}
             <div class="row">
                 <div class="col-12 black">
                     {{ homeText | raw }}
