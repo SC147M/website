@@ -34,3 +34,4 @@ yarn-error.log
 .vscode/ftp-sync.json
 
 debug.log
+.vs/**/*
