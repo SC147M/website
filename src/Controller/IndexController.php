@@ -26,7 +26,7 @@ class IndexController extends AbstractController
     {
         $today = new DateTime(date("Y-m-d H:i:s"));
         $tourneys = $reservationRepository->findByTypes([Reservation::TYPE_TOURNEY, Reservation::TYPE_LEAGUE_1, Reservation::TYPE_LEAGUE_2, Reservation::TYPE_LEAGUE_3], $today);
-        $reservations = $reservationRepository->findByTypes([Reservation::TYPE_TABLE, Reservation::TYPE_OTHERS], $today);
+        $reservations = $reservationRepository->findByTypes([Reservation::TYPE_TABLE, Reservation::TYPE_LEAGUE_3, Reservation::TYPE_OTHERS], $today);
         $reservations = $reservationFormatter->formatByDays($reservations);
 
         $news = $newsRepository->findOneBy([], ['createdAt' => 'desc']);
