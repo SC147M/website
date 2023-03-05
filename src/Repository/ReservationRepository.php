@@ -55,8 +55,10 @@ class ReservationRepository extends ServiceEntityRepository
 
         return $this->createQueryBuilder('r')
             ->andWhere('r.end > :start')
+            ->andWhere('r.start < :end')
             ->andWhere('r.type IN(:types)')
             ->setParameter('start', $start)
+            ->setParameter('end', $end)
             ->setParameter('types', $types)
             ->orderBy('r.start', 'ASC')
             ->getQuery()
