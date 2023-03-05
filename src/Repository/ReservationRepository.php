@@ -44,7 +44,7 @@ class ReservationRepository extends ServiceEntityRepository
      * @param DateTime  $start
      * @return Collection|Reservation[]
      */
-    public function findByTypes($types, DateTime $start)
+    public function findByTypes($types, DateTime $start, DateTime $end = NULL)
     {
         if (!is_array($types)) {
             $types = [$types];
@@ -59,7 +59,7 @@ class ReservationRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-
+       
     /**
      * @param array $args
      * @return mixed
