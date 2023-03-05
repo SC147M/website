@@ -62,6 +62,7 @@
                                     <td colspan="3" class="font-weight-bold">{{ days.date }}</td>
                                 </tr>
                                 {% for reservation in days.reservations %}
+                                    {% if (!in_array(4, reservation.tables) %}
                                     <tr>
                                         <td style="white-space:nowrap">
                                             {{ reservation.start | date('H:i') }} - {{ reservation.end | date('H:i') }}
@@ -82,6 +83,7 @@
                                             {% endif %}
                                         </td>
                                     </tr>
+                                    {% endif %}
                                 {% endfor %}
                             {% else %}
                                 <tr>
