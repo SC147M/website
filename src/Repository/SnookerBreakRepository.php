@@ -43,7 +43,7 @@ class SnookerBreakRepository extends ServiceEntityRepository
      */
     public function findMaxBreaksPerUser()
     {
-        // SELECT sb.user_id, max(sb.score) as max_score, sb.created_at FROM snooker_break sb group by sb.user_id ORDER by score DESC
+        // test SELECT sb.user_id, max(sb.score) as max_score, sb.created_at FROM snooker_break sb group by sb.user_id ORDER by score DESC
         // Up to now failed to do the "per user" bit
         return $this->createQueryBuilder('sb')
             ->orderBy('sb.score', 'DESC')
