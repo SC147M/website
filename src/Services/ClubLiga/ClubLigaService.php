@@ -1,12 +1,12 @@
 <?php
 /**
  * Created by copy and paste.
- * User: markuskruas
+ * User: markuskraus
  * Date: 04.05.23
  * Time: 23:08
  */
 
-namespace App\Services\ClubLeagueService;
+namespace App\Services\ClubLigaService;
 
 
 use App\Entity\Match;
@@ -19,7 +19,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 use Symfony\Component\Security\Core\Security;
 
-class ClubLeagueService
+class ClubLigaService
 {
     const RESULT_LOSS = 0;
     const RESULT_WIN = 1;
@@ -46,7 +46,7 @@ class ClubLeagueService
     private $manager;
 
     /**
-     * ClubLeagueService constructor.
+     * ClubLigaService constructor.
      * @param RoleHierarchyInterface $roleHierarchy
      * @param RankingRepository      $rankingRepository
      * @param MatchRepository        $matchRepository
