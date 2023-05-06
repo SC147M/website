@@ -6,7 +6,7 @@
  * Time: 23:08
  */
 
-namespace App\Services\ClubLigaService;
+namespace App\Services\ClubLiga;
 
 
 use App\Entity\ClubLigaMatch;
