@@ -12,7 +12,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  * @method ClubLigaMatch[]    findAll()
  * @method ClubLigaMatch[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class MatchRepository extends ServiceEntityRepository
+class ClubLigaMatchRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
