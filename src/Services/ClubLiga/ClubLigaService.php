@@ -9,10 +9,10 @@
 namespace App\Services\ClubLigaService;
 
 
-use App\Entity\Match;
+use App\Entity\ClubLigaMatch;
 use App\Entity\Ranking;
 use App\Entity\User;
-use App\Repository\MatchRepository;
+use App\Repository\ClubLigaMatchRepository;
 use App\Repository\RankingRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -25,9 +25,9 @@ class ClubLigaService
     const RESULT_WIN = 1;
 
     /**
-     * @var MatchRepository
+     * @var ClubLigaMatchRepository
      */
-    private $matchRepository;
+    private $clubLigaMatchRepository;
     /**
      * @var RankingRepository
      */
@@ -47,23 +47,23 @@ class ClubLigaService
 
     /**
      * ClubLigaService constructor.
-     * @param RoleHierarchyInterface $roleHierarchy
-     * @param RankingRepository      $rankingRepository
-     * @param MatchRepository        $matchRepository
-     * @param UserRepository         $userRepository
-     * @param EntityManagerInterface $manager
+     * @param RoleHierarchyInterface  $roleHierarchy
+     * @param RankingRepository       $rankingRepository
+     * @param ClubLigaMatchRepository $matchRepository
+     * @param UserRepository          $userRepository
+     * @param EntityManagerInterface  $manager
      */
     public function __construct(
         RoleHierarchyInterface $roleHierarchy,
         RankingRepository $rankingRepository,
-        MatchRepository $matchRepository,
+        ClubLigaMatchRepository $matchRepository,
         UserRepository $userRepository,
         EntityManagerInterface $manager
     )
     {
         $this->roleHierarchy = $roleHierarchy;
         $this->rankingRepository = $rankingRepository;
-        $this->matchRepository = $matchRepository;
+        $this->clubLigaMatchRepository = $matchRepository;
         $this->userRepository = $userRepository;
         $this->manager = $manager;
     }
@@ -182,13 +182,13 @@ class ClubLigaService
         $userRanking = $user->getRanking();
         $opponentRanking = $opponent->getRanking();
 
-        $match = new Match();
+        $match = new ClubLigaMatch();
         $match
             ->setUser1($user)
             ->setUser2($opponent)
             ->setCreated(new \DateTime())
             ->setUpdated(new \DateTime())
-            ->setState(Match::STATE_DONE)
+            ->setState(ClubLigaMatch::STATE_DONE)
             ->setResult($result)
             ->setScore1($score1)
             ->setScore2($score2);
