@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Match;
+use App\Entity\ClubLigaMatch;
 use App\Entity\User;
-use App\Repository\MatchRepository;
+use App\Repository\ClubLigaMatchRepository;
 use App\Repository\RankingRepository;
 use App\Repository\UserRepository;
 use App\Services\ClubLiga\ClubLigaService;
@@ -20,18 +20,23 @@ class ClubLigaController extends AbstractController
     /**
     * @Route("/clubligadb", name="clubligadb")
     */
-    public function clubLigaDb() {
-        return $this->render('club_liga/db.html.twig');
+    public function clubLigaDb(ClubLigaMatchRepository $matchRepository) {
+
+        $lastMatches = $matchRepository->findBy(['state' => ClubLigaMatch::STATE_DONE], ['updated' => 'DESC'], 10);
+
+        return $this->render('clubLiga/db.html.twig', [
+            'lastMatches'          => $lastMatches,
+        ]);
     }
 
     /**
      * @Route("/clubLiga", name="clubLiga")
      * @param ClubLigaService    $clubLigaService
      * @param RankingRepository $rankingRepository
-     * @param MatchRepository   $matchRepository
+     * @param ClubLigaMatchRepository   $matchRepository
      * @return Response
      */
-    public function index(Request $request, ClubLigaService $clubLigaService, RankingRepository $rankingRepository, MatchRepository $matchRepository)
+    public function index(Request $request, ClubLigaService $clubLigaService, RankingRepository $rankingRepository, ClubLigaMatchRepository $matchRepository)
     {
         $message = $request->get('message', '');
 
@@ -88,9 +93,9 @@ class ClubLigaController extends AbstractController
             }
         }
 
-        $lastMatches = $matchRepository->findBy(['state' => Match::STATE_DONE], ['updated' => 'DESC'], 10);
+        $lastMatches = $matchRepository->findBy(['state' => ClubLigaMatch::STATE_DONE], ['updated' => 'DESC'], 10);
 
-        return $this->render('clubLiga/index.html.twig', [
+        return $this->render('clubLiga/db.html.twig', [
             'clubLiga'              => $clubLiga,
             'player'               => $player,
             'opponentsToChallenge' => $opponentsToChallenge,
@@ -99,7 +104,6 @@ class ClubLigaController extends AbstractController
             'message'              => $message,
         ]);
     }
-
 
     /**
      * @Route("/clubLiga/directresult", name="clubLiga_report_direct_result")
