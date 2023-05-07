@@ -18,22 +18,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class ClubLigaController extends AbstractController
 {
     /**
-    * @Route("/clubligadb", name="clubligadb")
-    */
-    public function clubLigaDb(ClubLigaMatchRepository $matchRepository) {
-
-        $lastMatches = $matchRepository->findBy(['state' => ClubLigaMatch::STATE_DONE], ['updated' => 'DESC'], 10);
-
-        return $this->render('clubLiga/db.html.twig', [
-            'lastMatches'          => $lastMatches,
-        ]);
-    }
-
-    /**
-     * @Route("/clubLiga", name="clubLiga")
-     * @param ClubLigaService    $clubLigaService
-     * @param RankingRepository $rankingRepository
-     * @param ClubLigaMatchRepository   $matchRepository
+     * @Route("/clubligadb", name="clubligadb")
+     * @param ClubLigaService          $clubLigaService
+     * @param RankingRepository        $rankingRepository
+     * @param ClubLigaMatchRepository  $matchRepository
      * @return Response
      */
     public function index(Request $request, ClubLigaService $clubLigaService, RankingRepository $rankingRepository, ClubLigaMatchRepository $matchRepository)
