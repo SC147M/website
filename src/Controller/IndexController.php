@@ -55,6 +55,13 @@ class IndexController extends AbstractController
     }
 
     /**
+     * @Route("/clubligadb", name="clubligadb")
+     */
+    public function clubLigaDb() {
+        return $this->render('club_liga/db.html.twig');
+    }
+
+    /**
      * @Route("/timer", name="timer")
      */
     public function shootoutTimer() {
