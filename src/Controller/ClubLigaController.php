@@ -19,32 +19,15 @@ class ClubLigaController extends AbstractController
 {
     /**
      * @Route("/clubligadb", name="clubligadb")
-     * @param ClubLigaService          $clubLigaService
-     * @param RankingRepository        $rankingRepository
      * @param ClubLigaMatchRepository  $matchRepository
      * @return Response
      */
-    public function index(Request $request, ClubLigaService $clubLigaService, RankingRepository $rankingRepository, ClubLigaMatchRepository $matchRepository)
+    public function index(ClubLigaMatchRepository $matchRepository)
     {
-        $message = $request->get('message', '');
-
-        /** @var User $user */
-        $user = $this->getUser();
-        $opponentsToChallenge = null;
-
-        $rankings = null;
-
-        $clubLiga = [];
-
         $lastMatches = $matchRepository->findBy(['state' => ClubLigaMatch::STATE_DONE], ['updated' => 'DESC'], 10);
 
         return $this->render('clubLiga/db.html.twig', [
-            'clubLiga'             => $clubLiga,
-            'player'               => $player,
-            'opponentsToChallenge' => $opponentsToChallenge,
             'lastMatches'          => $lastMatches,
-            'user'                 => $user,
-            'message'              => $message,
         ]);
     }
 
