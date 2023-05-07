@@ -30,61 +30,16 @@ class ClubLigaController extends AbstractController
 
         /** @var User $user */
         $user = $this->getUser();
-        $opponentsToChallenge = $clubLigaService->getValidOpponents($user);
+        $opponentsToChallenge = null;
 
-        $ranking = $user->getRanking();
-        if ($ranking) {
-            $rank = $user->getRanking()->getPosition();
-            $player = [
-                'id'  => $user->getId(),
-                'min' => $rank - 1,
-                'max' => $this->getMaxChallengeRank($rank),
-            ];
-        } else {
-            $player = [
-                'id'  => $user->getId(),
-                'min' => $rankingRepository->findOneBy([], ['position' => 'DESC'])->getPosition(),
-                'max' => $opponentsToChallenge[0]->getRanking()->getPosition(),
-            ];
-        }
-
-        $rankings = $rankingRepository->findBy([], ['position' => 'ASC']);
-
-        $row = 1;
-        $challengers = [];
-        foreach ($rankings as $ranking) {
-            $row = $this->getRow($ranking->getPosition());
-
-            $challengers[] = [
-                'id'    => $ranking->getUser()->getId(),
-                'valid' => true,
-                'rank'  => $ranking->getPosition(),
-                'row'   => $row,
-                'user'  => $ranking->getUser(),
-            ];
-
-        }
+        $rankings = null;
 
         $clubLiga = [];
-        foreach ($challengers as $challenger) {
-            $clubLiga[$challenger['row']][] = $challenger;
-        }
-
-        // Fill the last places in the last row for clubLiga design
-        $gap = $row - count($clubLiga[$row]);
-        if ($gap > 0) {
-            for ($i = 0; $i < $gap; $i++) {
-                $clubLiga[$row][] = [
-                    'id'    => null,
-                    'valid' => false,
-                ];
-            }
-        }
 
         $lastMatches = $matchRepository->findBy(['state' => ClubLigaMatch::STATE_DONE], ['updated' => 'DESC'], 10);
 
         return $this->render('clubLiga/db.html.twig', [
-            'clubLiga'              => $clubLiga,
+            'clubLiga'             => $clubLiga,
             'player'               => $player,
             'opponentsToChallenge' => $opponentsToChallenge,
             'lastMatches'          => $lastMatches,
