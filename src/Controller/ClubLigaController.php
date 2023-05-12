@@ -12,6 +12,6 @@ class ClubLigaController extends AbstractController
      */
     public function index()
     {
-        return $this->render('club_liga_new/index.html.twig');
+        return $this->render('club_liga_new/index.html.twig', ['stand' => '1.1.2023']);
     }
 }
