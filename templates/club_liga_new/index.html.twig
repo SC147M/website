@@ -38,7 +38,9 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <tr><td>1</td><td>Spieler 1</td><td>Spieler 2</td><td>a:b</td></tr>
+                        {% for match in matches %}
+                            <tr><td>0</td><td>{{ match.user1.shortname }}</td><td>{{ match.user2.shortname }}</td><td>{{ match.score1 }} : {{ match.score2 }}</td></tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
