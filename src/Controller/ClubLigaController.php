@@ -25,7 +25,7 @@ class ClubLigaController extends AbstractController
         catch(Exception $ex) {
             return $this->render('club_liga_new/index.html.twig', [
                 'stand' => $ex->getMessage(),
-                'matches' => $matches,
+                'matches' => [],
             ]);
         }
     }
