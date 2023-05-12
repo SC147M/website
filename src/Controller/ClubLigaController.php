@@ -15,10 +15,17 @@ class ClubLigaController extends AbstractController
     public function index(ClubLigaMatchRepository $clubLigaMatchRepository)
     {
         $matches = $clubLigaMatchRepository->findAll();
+        $standings = $this->getStandings($matches);
 
         return $this->render('club_liga_new/index.html.twig', [
-            'stand' => '4.1.2023',
-            'matches' => $matches,
+            'stand'     => '5.1.2023',
+            'matches'   => $matches,
+            'standings' => $standings,
         ]);
+    }
+
+    private function getStandings(ClubLigaMatch[] $matches) 
+    {
+        return [];
     }
 }
