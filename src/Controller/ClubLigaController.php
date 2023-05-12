@@ -14,19 +14,11 @@ class ClubLigaController extends AbstractController
      */
     public function index(ClubLigaMatchRepository $clubLigaMatchRepository)
     {
-        try {
-            $matches = $clubLigaMatchRepository->findAll();
+        $matches = $clubLigaMatchRepository->findAll();
 
-            return $this->render('club_liga_new/index.html.twig', [
-                'stand' => '3.1.2023',
-                'matches' => [],
-            ]);
-        }
-        catch(Exception $ex) {
-            return $this->render('club_liga_new/index.html.twig', [
-                'stand' => $ex->getMessage(),
-                'matches' => [],
-            ]);
-        }
+        return $this->render('club_liga_new/index.html.twig', [
+            'stand' => '3.1.2023',
+            'matches' => $matches,
+        ]);
     }
 }
