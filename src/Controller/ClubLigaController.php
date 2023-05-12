@@ -14,7 +14,7 @@ class ClubLigaController extends AbstractController
      */
     public function index(ClubLigaMatchRepository $clubLigaMatchRepository)
     {
-        $matches = $clubLigaMatchRepository->findBy(['state' => Match::STATE_DONE], ['updated' => 'DESC'], 10);
+        $matches = $clubLigaMatchRepository->findBy(['state' => ClubLigaMatch::STATE_DONE], ['updated' => 'DESC'], 10);
 
         return $this->render('club_liga_new/index.html.twig', [
             'stand'     => '3.1.2023',
