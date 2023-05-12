@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\ClubLigaMatch;
 use App\Repository\ClubLigaMatchRepository;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,7 +25,7 @@ class ClubLigaController extends AbstractController
         ]);
     }
 
-    private function getStandings(ClubLigaMatch[] $matches) 
+    private function getStandings(ClubLigaMatch[] $matches)
     {
         return [];
     }
