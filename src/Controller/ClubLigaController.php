@@ -17,8 +17,13 @@ class ClubLigaController extends AbstractController
         $matches = $clubLigaMatchRepository->findAll();
 
         return $this->render('club_liga_new/index.html.twig', [
-            'stand'     => '5.1.2023',
+            'stand'     => $this->loadStand(),
             'matches'   => $matches,
         ]);
+    }
+
+    private function loadStand()
+    {
+        return '6.1.2023';
     }
 }
