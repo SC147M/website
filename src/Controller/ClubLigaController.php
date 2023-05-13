@@ -28,7 +28,7 @@ class ClubLigaController extends AbstractController
         return '7.1.2023';
     }
 
-    private function loadStandings(array $matches)
+    private function loadStandings($matches)
     {
         $ranking = new Ranking();
 
