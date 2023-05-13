@@ -30,12 +30,10 @@ class ClubLigaController extends AbstractController
 
     private function loadStandings($matches)
     {
-        foreach ($matches as $match) {
-            $rankings[] = [
-                'rank' => '1',
-                'user' => $match->getUser(),
-            ];
-            return $rankings;
-        }
+        $rankings[] = [
+            'rank' => '1',
+            'user' => 'John',
+        ];
+        return $rankings;
     }
 }
