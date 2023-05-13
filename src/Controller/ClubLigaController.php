@@ -25,18 +25,17 @@ class ClubLigaController extends AbstractController
 
     private function loadStand() : string
     {
-        return '7.1.2023';
+        return '8.1.2023';
     }
 
     private function loadStandings($matches)
     {
         foreach ($matches as $match) {
+            $rankings[] = [
+                'rank' => '1',
+                'user' => $match->getUser()->getUsername(),
+            ];
+            return $rankings;
         }
-
-        $rankings[] = [
-            'rank' => '1',
-            'user' => 'John',
-        ];
-        return $rankings;
     }
 }
