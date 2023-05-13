@@ -33,7 +33,7 @@ class ClubLigaController extends AbstractController
         foreach ($matches as $match) {
             $rankings[] = [
                 'rank' => '1',
-                'user' => $match->getUser(),
+                'user' => $match->getUser1()->getUsername(),
             ];
             return $rankings;
         }
