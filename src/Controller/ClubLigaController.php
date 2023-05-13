@@ -19,7 +19,7 @@ class ClubLigaController extends AbstractController
         return $this->render('club_liga_new/index.html.twig', [
             'stand'     => $this->loadStand(),
             'matches'   => $matches,
-            'standings' => $this->loadStandings($matches),
+            'rankings'  => $this->calculateRankings($matches),
         ]);
     }
 
@@ -28,7 +28,7 @@ class ClubLigaController extends AbstractController
         return '8.1.2023';
     }
 
-    private function loadStandings($matches)
+    private function calculateRankings($matches)
     {
         foreach ($matches as $match) {
             $rankings[] = [

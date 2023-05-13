@@ -20,7 +20,9 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <tr><td>1</td><td>Spieler</td><td>14</td><td class="font-weight-bold">33</td><td>40:16</td></tr>
+                        {% for ranking in rankings %}
+                            <tr><td>{{rank}}</td><td>{{user.shortname}}</td><td>14</td><td class="font-weight-bold">33</td><td>40:16</td></tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
