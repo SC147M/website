@@ -30,13 +30,12 @@ class ClubLigaController extends AbstractController
 
     private function loadStandings($matches)
     {
-        $ranking = new Ranking();
-
         foreach ($matches as $match) {
-            $ranking->setPosition(1);
-            $ranking->setUser($match->getUser());
-            break;
+            $rankings[] = [
+                'rank' => '1',
+                'user' => $match->getUser(),
+            ];
+            return $rankings;
         }
-        return array(1 => $ranking);
     }
 }
