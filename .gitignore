@@ -39,3 +39,6 @@ debug.log
 /.vs/slnx.sqlite
 /.vs/VSWorkspaceState.json
 /.vs/sc147.de/v17/workspaceFileList.bin
+
+### Miscellanoues
+deploy.sh
