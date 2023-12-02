@@ -186,13 +186,6 @@ class IndexController extends AbstractController
             die();
         }
 
-        return $this->render('registration/rpmailsend.html.twig', [
-            'registrationForm' => $form->createView(),
-        ]);
-    }
-
-        return $this->render('registration/requestpassword.html.twig', [
-            'registrationForm' => $form->createView(),
-        ]);
+        return $this->render('registration/rpmailsend.html.twig');
     }
 }
