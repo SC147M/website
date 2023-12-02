@@ -7,7 +7,7 @@
                 <div class="header">
                     <img src="/images/home.png" srcset="/images/home@2x.png 2x" class="img-fluid"
                          alt="Snookerclub 147 München e.V.">
-                    <h1>Snookerclub 147 München e.V.<br/><small>Klausnerring 15 - 85551 Kirchheim</small></h1>
+                    <h1>Snookerclub 147 München e.V.<br/><small>Kirchheim</small></h1>
                 </div>
             </div>
         </div>
@@ -35,19 +35,6 @@
                         <p><a href="{{ path('news_detail', {id: news.id, slug: news.slug}) }}">Weiterlesen</a></p>
                     </div>
 
-                    <h2>Adresse</h2>
-                    <ul class="list-group list-group-flush list-box">
-                        <li class="list-group-item">
-                            <p>
-                                Snookerclub 147 München e.V.
-                                <br/>Klausnerring 15
-                                <br/>85551 Kirchheim
-                            </p>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-6 mt-4">
                     {% if is_granted('ROLE_USER') %}
                     <h2>
                         Tischbelegung
@@ -92,24 +79,38 @@
                         </table>
                     </div>
                     {% endif %}
+                </div>
+
+                <div class="col-lg-6 mt-4">
 
                     {% if tourneys | length > 0 %}
-                        <h2>Spieltage und Turniere</h2>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <tbody>
-                                {% for reservation in tourneys %}
-                                    <tr>
-                                        <th scope="row"><strong>{{ reservation.start | date('d.m.Y') }}</strong></th>
-                                        <td>
-                                            {{ reservation.comment | raw }}
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
+                    <h2>Spieltage und Turniere</h2>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                            {% for reservation in tourneys %}
+                                <tr>
+                                    <th scope="row"><strong>{{ reservation.start | date('d.m.Y') }}</strong></th>
+                                    <td>
+                                        {{ reservation.comment | raw }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                     {% endif %}
+
+                    <h2>Adresse</h2>
+                    <ul class="list-group list-group-flush list-box">
+                        <li class="list-group-item">
+                            <p>
+                                Snookerclub 147 München e.V.
+                                <br/>Klausnerring 15
+                                <br/>85551 Kirchheim
+                            </p>
+                        </li>
+                    </ul>
                 </div>
 
             </div>
