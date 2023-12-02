@@ -144,7 +144,7 @@ class IndexController extends AbstractController
     /**
      * @Route("/welcome", name="welcome")
      */
-    public function live()
+    public function welcome()
     {
         return $this->render('index/welcome.html.twig');
     }
