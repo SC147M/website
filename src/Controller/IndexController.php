@@ -156,4 +156,43 @@ class IndexController extends AbstractController
     {
         return $this->render('index/breaks.html.twig');
     }
+
+    /**
+     * @Route("/contact", name="contact")
+     * @param Request        $request
+     * @param UserRepository $userRepository
+     * @return Response
+     */
+    public function contact(Request $request, \Swift_Mailer $mailer): Response
+    {
+        $email = 'no-reply@sc147.de';
+        $message = (new \Swift_Message('sc147.de - Passwort vergessen'))
+            ->setFrom($email)
+            ->setTo('markus.kraus@sc147.de')
+            ->setBody(
+                $this->renderView(
+                // templates/emails/registration.html.twig
+                    'emails/requestpassword.html.twig',
+                    ['hash' => $hash,
+                        'user' => $user]
+                ),
+                'text/html'
+            );
+
+        try {
+            $mailer->send($message);
+        } catch (\Throwable $e) {
+            print $e->getMessage();
+            die();
+        }
+
+        return $this->render('registration/rpmailsend.html.twig', [
+            'registrationForm' => $form->createView(),
+        ]);
+    }
+
+        return $this->render('registration/requestpassword.html.twig', [
+            'registrationForm' => $form->createView(),
+        ]);
+    }
 }
