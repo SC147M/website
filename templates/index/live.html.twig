@@ -7,12 +7,25 @@
         <div class="container main-container">
             <div class="row">
                 <div class="col-12 mt-4">
-                    <h1>Live aus dem Club</h1>
+                    <h1>Live aus'm Club</h1>
                 </div>
 
                 <div class="col-12 mt-4">
-                    <iframe style="width:100%; height:800px; border:none;" 
-                            src="https://sc147.myscoreboard.org/"></iframe>
+                    <style>
+                        /* Set the default width to 100% */
+                        iframe {
+                          width: 100%;
+                          border: none; /* Optional: Remove border if not needed */
+                        }
+
+                        /* Adjust the width for smaller screens (e.g., mobile) */
+                        @media (max-width: 508px) {
+                          iframe {
+                            width: 50%;
+                          }
+                        }
+                    </style>
+                    <iframe src="https://sc147.myscoreboard.org/" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
         </div>
