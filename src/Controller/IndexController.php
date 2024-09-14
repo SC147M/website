@@ -57,7 +57,7 @@ class IndexController extends AbstractController
     /**
      * @Route("/clubliga/2024", name="clubliga2024")
      */
-    public function clubLiga2023()
+    public function clubLiga2024()
     {
         return $this->render('club_liga/2023-24.html.twig');
     }
