@@ -13,7 +13,7 @@ easy_admin:
       - { entity: 'User', permission: 'ROLE_ADMIN' }
       - { entity: 'Reservation', permission: 'ROLE_CONTENT' }
       - { entity: 'Table', permission: 'ROLE_ADMIN' }
-      - { entity: 'Pyramid', permission: 'ROLE_ADMIN',  children: ['Ranking', 'Matches', { label: 'Ranking neu berechnen', url: '/pyramid/recalc', rel: 'index' }] }
+#     - { entity: 'Pyramid', permission: 'ROLE_ADMIN',  children: ['Ranking', 'Matches', { label: 'Ranking neu berechnen', url: '/pyramid/recalc', rel: 'index' }] }
 
       - { entity: 'SnookerBreak', permission: 'ROLE_ADMIN' }
   site_name: Snooker Club 147 Admin
