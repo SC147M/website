@@ -48,7 +48,6 @@ Message: Nachricht
 ROLE_PENDING: ausstehend / gesperrt
 ROLE_USER: Mitglied
 ROLE_CONTENT: News & Fotos
-ROLE_CAPTAIN: Mannschaftskapitän
 ROLE_ADMIN: Administrator
 
 save_changes: Änderungen  speichern
