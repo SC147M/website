@@ -448,7 +448,7 @@ class User implements UserInterface
 
     public function getShortName() {
         $length = $this->getFirstName() === "Martin" ? 2 : 1;
-        return $this->getFirstName() . ' ' . substr($this->getLastName(), 0, 1) . '.';
+        return $this->getFirstName() . ' ' . substr($this->getLastName(), 0, $length) . '.';
     }
 
     /**
