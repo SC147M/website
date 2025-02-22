@@ -447,9 +447,6 @@ class User implements UserInterface
     }
 
     public function getShortName() {
-        if ($this.getFirstName() == 'Martin') {
-            return $this->getFirstName() . ' ' . substr($this->getLastName(), 0, 2) . '.';
-        }
         return $this->getFirstName() . ' ' . substr($this->getLastName(), 0, 1) . '.';
     }
 
