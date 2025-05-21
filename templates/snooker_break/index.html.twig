@@ -33,7 +33,7 @@
                 {% if is_granted('ROLE_USER') %}
                 <div class="col-md-6 mt-4">
                     <h1>Meine aktuellen Breaks</h1>
-                    <p>Baustelle</p>
+                    {{ include('snooker_break/_breaktable.html.twig', {'breaks': latest_personal_breaks}) }}
                 </div>
                 {% endif %}
    
