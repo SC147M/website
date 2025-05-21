@@ -42,6 +42,7 @@ class SnookerBreakController extends AbstractController
             'snooker_breaks' => $snookerBreakRepository->findLatestHighBreaks(),
             'highest_breaks' => $result,
             'personal_breaks' => $snookerBreakRepository->findByUser($this->getUser()),
+            'latest_personal_breaks' => $snookerBreakRepository->findLatestBreaksByUser($this->getUser()),
         ]);
     }
 

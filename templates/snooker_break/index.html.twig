@@ -28,6 +28,12 @@
                     <h1>Meine h&ouml;chsten Breaks</h1>
                     {{ include('snooker_break/_breaktable.html.twig', {'breaks': personal_breaks}) }}
                 </div>
+
+                {% if is_granted('ROLE_USER') %}
+                <div class="col-md-6 mt-4">
+                    <h1>Meine aktuellen Breaks</h1>
+                    {{ include('snooker_break/_breaktable.html.twig', {'breaks': latest_personal_breaks}) }}
+                </div>
                 {% endif %}
    
             </div>

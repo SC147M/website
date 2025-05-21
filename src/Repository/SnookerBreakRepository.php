@@ -51,6 +51,22 @@ class SnookerBreakRepository extends ServiceEntityRepository
             ->getResult();
     }
     
+
+    /**
+     * @return SnookerBreak[] Returns an array of SnookerBreak objects
+     */
+    public function findLatestBreaksByUser($user)
+    {
+    return $this->createQueryBuilder('sb')
+        ->andWhere('sb.user = :user')
+        ->andWhere('sb.score > 9')
+        ->setMaxResults(10)
+        ->orderBy('sb.createdAt', 'DESC')
+        ->setParameter('user', $user)
+        ->getQuery()
+        ->getResult();
+    }
+
     /**
      * @return SnookerBreak[] Returns an array of SnookerBreak objects
      */
