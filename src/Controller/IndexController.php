@@ -25,9 +25,10 @@ class IndexController extends AbstractController
     public function index(ReservationRepository $reservationRepository, NewsRepository $newsRepository, ReservationFormatter $reservationFormatter, TextContentRepository $textContentRepository)
     {
         $today = new DateTime(date("Y-m-d H:i:s"));
-        $oneWeek = new DateTime("+ 2 week"); /* now two weeks, Buchungen der nächsten 2 Wochen werden angezeigt */
-        $tourneys = $reservationRepository->findByTypes([Reservation::TYPE_TOURNEY, Reservation::TYPE_LEAGUE_1, Reservation::TYPE_LEAGUE_2, Reservation::TYPE_LEAGUE_3], $today);
-        $reservations = $reservationRepository->findByTypes([Reservation::TYPE_TABLE, Reservation::TYPE_OTHERS], $today, $oneWeek);
+        $reservationsHorizon = new DateTime("+ 2 week"); /* now two weeks, Buchungen der nächsten 2 Wochen werden angezeigt */
+        $tournamentsHorizon = new DateTime("+ 16 week"); /*tournaments/leagues: 16 weeks */
+        $tourneys = $reservationRepository->findByTypes([Reservation::TYPE_TOURNEY, Reservation::TYPE_LEAGUE_1, Reservation::TYPE_LEAGUE_2, Reservation::TYPE_LEAGUE_3], $today, $tournamentsHorizon);
+        $reservations = $reservationRepository->findByTypes([Reservation::TYPE_TABLE, Reservation::TYPE_OTHERS], $today, $reservationsHorizon);
         $reservations = $reservationFormatter->formatByDays($reservations);
 
         $news = $newsRepository->findOneBy([], ['createdAt' => 'desc']);
