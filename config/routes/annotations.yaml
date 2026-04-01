@@ -1,3 +1,7 @@
 controllers:
     resource: ../../src/Controller/
+    type: attribute
+
+controllers_old:
+    resource: ../../src/Controller/
     type: annotation

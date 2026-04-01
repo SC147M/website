@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Traits\TimestampAble;
+use App\Entity\Match as MatchEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -82,12 +83,12 @@ class User implements UserInterface
     private $ranking;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Match", mappedBy="user1", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\MatchEntity", mappedBy="user1", orphanRemoval=true)
      */
     private $matches1;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Match", mappedBy="user2", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\MatchEntity", mappedBy="user2", orphanRemoval=true)
      */
     private $matches2;
 
@@ -140,6 +141,14 @@ class User implements UserInterface
      * @see UserInterface
      */
     public function getUsername(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
     {
         return (string) $this->email;
     }
@@ -385,30 +394,30 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Match[]
+     * @return Collection|MatchEntity[]
      */
     public function getMatches1(): Collection
     {
         return $this->matches1;
     }
 
-    public function addMatch1(Match $match): self
+    public function addMatch1(MatchEntity $matchEntity): self
     {
-        if (!$this->matches1->contains($match)) {
-            $this->matches1[] = $match;
-            $match->setUser1($this);
+        if (!$this->matches1->contains($matchEntity)) {
+            $this->matches1[] = $matchEntity;
+            $matchEntity->setUser1($this);
         }
 
         return $this;
     }
 
-    public function removeMatch1(Match $match): self
+    public function removeMatch1(MatchEntity $matchEntity): self
     {
-        if ($this->matches1->contains($match)) {
-            $this->matches1->removeElement($match);
+        if ($this->matches1->contains($matchEntity)) {
+            $this->matches1->removeElement($matchEntity);
             // set the owning side to null (unless already changed)
-            if ($match->getUser1() === $this) {
-                $match->setUser1(null);
+            if ($matchEntity->getUser1() === $this) {
+                $matchEntity->setUser1(null);
             }
         }
 
@@ -416,30 +425,30 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Match[]
+     * @return Collection|MatchEntity[]
      */
     public function getMatches2(): Collection
     {
         return $this->matches2;
     }
 
-    public function addMatch2(Match $match): self
+    public function addMatch2(MatchEntity $matchEntity): self
     {
-        if (!$this->matches2->contains($match)) {
-            $this->matches2[] = $match;
-            $match->setUser2($this);
+        if (!$this->matches2->contains($matchEntity)) {
+            $this->matches2[] = $matchEntity;
+            $matchEntity->setUser2($this);
         }
 
         return $this;
     }
 
-    public function removeMatch2(Match $match): self
+    public function removeMatch2(MatchEntity $matchEntity): self
     {
-        if ($this->matches2->contains($match)) {
-            $this->matches2->removeElement($match);
+        if ($this->matches2->contains($matchEntity)) {
+            $this->matches2->removeElement($matchEntity);
             // set the owning side to null (unless already changed)
-            if ($match->getUser2() === $this) {
-                $match->setUser2(null);
+            if ($matchEntity->getUser2() === $this) {
+                $matchEntity->setUser2(null);
             }
         }
 

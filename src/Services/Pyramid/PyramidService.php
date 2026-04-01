@@ -9,7 +9,7 @@
 namespace App\Services\Pyramid;
 
 
-use App\Entity\Match;
+use App\Entity\Match as MatchEntity;
 use App\Entity\Ranking;
 use App\Entity\User;
 use App\Repository\MatchRepository;
@@ -182,13 +182,13 @@ class PyramidService
         $userRanking = $user->getRanking();
         $opponentRanking = $opponent->getRanking();
 
-        $match = new Match();
+        $match = new MatchEntity();
         $match
             ->setUser1($user)
             ->setUser2($opponent)
             ->setCreated(new \DateTime())
             ->setUpdated(new \DateTime())
-            ->setState(Match::STATE_DONE)
+            ->setState(MatchEntity::STATE_DONE)
             ->setResult($result)
             ->setScore1($score1)
             ->setScore2($score2);

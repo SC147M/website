@@ -8,21 +8,15 @@ use App\Repository\ReservationRepository;
 use App\Repository\TextContentRepository;
 use App\Services\ReservationFormatter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
 use DateTime;
 
 
 class IndexController extends AbstractController
 {
-    /**
-     * @Route("/", name="index")
-     * @param ReservationRepository $reservationRepository
-     * @param NewsRepository        $newsRepository
-     * @param ReservationFormatter  $reservationFormatter
-     * @param TextContentRepository $textContentRepository
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function index(ReservationRepository $reservationRepository, NewsRepository $newsRepository, ReservationFormatter $reservationFormatter, TextContentRepository $textContentRepository)
+    #[Route('/', name: 'index')]
+    public function index(ReservationRepository $reservationRepository, NewsRepository $newsRepository, ReservationFormatter $reservationFormatter, TextContentRepository $textContentRepository): Response
     {
         $today = new DateTime(date("Y-m-d H:i:s"));
         $reservationsHorizon = new DateTime("+ 2 week"); /* now two weeks, Buchungen der nächsten 2 Wochen werden angezeigt */
@@ -46,132 +40,5 @@ class IndexController extends AbstractController
                 'homeText'     => $homeText,
             ]
         );
-    }
-
-    /**
-     * @Route("/clubliga", name="clubliga")
-     */
-    public function clubLiga() {
-        return $this->render('club_liga/index.html.twig');
-    }
-
-    /**
-     * @Route("/clubliga/2025", name="clubliga2025")
-     */
-    public function clubLiga2025()
-    {
-        return $this->render('club_liga/2024-25.html.twig');
-    }
-
-
-    /**
-     * @Route("/clubliga/2024", name="clubliga2024")
-     */
-    public function clubLiga2024()
-    {
-        return $this->render('club_liga/2023-24.html.twig');
-    }
-
-    /**
-     * @Route("/clubliga/2023", name="clubliga2023")
-     */
-    public function clubLiga2023()
-    {
-        return $this->render('club_liga/2022-23.html.twig');
-    }
-
-    /**
-     * @Route("/timer", name="timer")
-     */
-    public function shootoutTimer() {
-        return $this->render('index/shootouttimer.html.twig');
-    }
-
-    /**
-     * @Route("/mitgliedschaft", name="membership")
-     */
-    public function membership()
-    {
-        return $this->render('index/costs.html.twig');
-    }
-
-    /**
-     * @Route("/anfahrt", name="map")
-     */
-    public function map()
-    {
-        return $this->render('index/map.html.twig');
-    }
-
-    /**
-     * @Route("/service", name="service")
-     */
-    public function service()
-    {
-        return $this->render('index/faq.html.twig');
-    }
-
-    /**
-     * @Route("/impressum", name="imprint")
-     */
-    public function imprint()
-    {
-        return $this->render('index/imprint.html.twig');
-    }
-
-    /**
-     * @Route("/datenschutz", name="dsgvo")
-     */
-    public function dsgvo()
-    {
-        return $this->render('index/dsgvo.html.twig');
-    }
-
-    /**
-     * @Route("/games", name="games")
-     */
-    public function games()
-    {
-        return $this->render('index/games.html.twig');
-    }
-
-    /**
-     * @Route("/training", name="training")
-     */
-    public function training()
-    {
-        return $this->render('index/training.html.twig');
-    }
-
-    /**
-     * @Route("/live", name="live")
-     */
-    public function live()
-    {
-        return $this->render('index/live.html.twig');
-    }
-
-    /**
-     * @Route("/teams", name="teams")
-     */
-    public function teams()
-    {
-        return $this->render('index/teams.html.twig');
-    }
-
-    /**
-     * @Route("/welcome", name="welcome")
-     */
-    public function welcome()
-    {
-        return $this->render('index/welcome.html.twig');
-    }
-
-    /**
-     * @Route("/breaks_old", name="breaks_old")
-     */
-    public function breaks()
-    {
-        return $this->render('index/breaks.html.twig');
     }
 }

@@ -2,31 +2,10 @@
 
 namespace App\Controller;
 
-use EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class AdminController extends EasyAdminController
+class AdminController extends AbstractController
 {
-    protected function persistEntity($entity)
-    {
-        if (method_exists($entity, 'setPassword')) {
-            if (empty($entity->getPassword())) {
-                $entity->setPassword('abc');
-            }
-        }
-
-        if (method_exists($entity, 'setUser')) {
-            if (empty($entity->getUser())) {
-                $user = $this->getUser();
-                $entity->setUser($user);
-            }
-        }
-
-        if (method_exists($entity, 'setViews')) {
-            if (empty($entity->getViews())) {
-                $entity->setViews(0);
-            }
-        }
-
-        parent::persistEntity($entity);
-    }
+    // This controller is now a placeholder
+    // EasyAdmin 4.x uses Dashboard and CRUD controllers instead
 }

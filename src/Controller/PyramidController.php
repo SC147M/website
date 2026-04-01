@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Match;
+use App\Entity\Match as MatchEntity;
 use App\Entity\User;
 use App\Repository\MatchRepository;
 use App\Repository\RankingRepository;
@@ -81,7 +81,7 @@ class PyramidController extends AbstractController
             }
         }
 
-        $lastMatches = $matchRepository->findBy(['state' => Match::STATE_DONE], ['updated' => 'DESC'], 10);
+        $lastMatches = $matchRepository->findBy(['state' => MatchEntity::STATE_DONE], ['updated' => 'DESC'], 10);
 
         return $this->render('pyramid/index.html.twig', [
             'pyramid'              => $pyramid,
