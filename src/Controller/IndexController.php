@@ -167,6 +167,14 @@ class IndexController extends AbstractController
     }
 
     /**
+     * @Route("/teams", name="teams-2025-26")
+     */
+    public function teams()
+    {
+        return $this->render('index/teams_2025-26.html.twig');
+    }
+
+    /**
      * @Route("/welcome", name="welcome")
      */
     public function welcome()
