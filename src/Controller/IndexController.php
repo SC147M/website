@@ -159,6 +159,14 @@ class IndexController extends AbstractController
     }
 
     /**
+     * @Route("/livestream", name="livestream")
+     */
+    public function live()
+    {
+        return $this->render('index/livestream.html.twig');
+    }
+
+    /**
      * @Route("/teams", name="teams")
      */
     public function teams()
